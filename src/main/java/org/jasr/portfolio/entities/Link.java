@@ -1,6 +1,9 @@
 package org.jasr.portfolio.entities;
 
-public class Link {
+import javax.persistence.Entity;
+
+@Entity
+public class Link extends BaseEntity{
     private String name;
     private String display;
 

@@ -1,8 +1,17 @@
 package org.jasr.portfolio.entities;
 
-public class Type {
+import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+
+@Entity
+public class Type extends BaseEntity{
     private String name;
     private String description;
+    @OneToMany
+    private Set<Project> projects;
 
     public String getName() {
         return name;

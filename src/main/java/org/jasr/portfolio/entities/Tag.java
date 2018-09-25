@@ -1,6 +1,9 @@
 package org.jasr.portfolio.entities;
 
-public class Tag {
+import javax.persistence.Entity;
+
+@Entity
+public class Tag extends BaseEntity{
     private String name;
     private String description;
 
