@@ -13,6 +13,14 @@ public class Type extends BaseEntity{
     @OneToMany
     private Set<Project> projects;
 
+    public Set<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
+    }
+
     public String getName() {
         return name;
     }
