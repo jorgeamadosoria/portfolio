@@ -6,5 +6,12 @@
 </head>
 <body>
     <p th:text="'Hello, ' + ${name} + '!'" />
+    <table id="types">
+    <form method="post" action="#" th:action="@{/admin/type}" th:object="${type}">
+    <input id="name" name="name" th:value="${name}">
+    <input id="description" name="description" th:value="${description}">
+    </form>    <thead><th>Name</th><th>Description</th></thead>
+    
+    </table>
 </body>
 </html>
