@@ -8,7 +8,16 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class BaseEntity {
 
-	public Long getId() {
+	public BaseEntity() {
+        super();
+    }
+
+    public BaseEntity(Long id) {
+        super();
+        this.id = id;
+    }
+
+    public Long getId() {
 		return id;
 	}
 

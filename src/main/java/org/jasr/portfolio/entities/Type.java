@@ -12,6 +12,14 @@ public class Type extends BaseEntity{
     private String description;
     @OneToMany
     private Set<Project> projects;
+    
+    public Type() {
+        super();
+    }
+
+    public Type(Long id) {
+        super(id);
+    }
 
     public Set<Project> getProjects() {
         return projects;

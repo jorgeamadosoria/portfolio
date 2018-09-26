@@ -1,17 +1,52 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Serving Web Content</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Portfolio Admin</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
-    <p th:text="'Hello, ' + ${name} + '!'" />
-    <table id="types">
-    <form method="post" action="#" th:action="@{/admin/type}" th:object="${type}">
-    <input id="name" name="name" th:value="${name}">
-    <input id="description" name="description" th:value="${description}">
-    </form>    <thead><th>Name</th><th>Description</th></thead>
-    
-    </table>
+	<form id="typeForm" method="post" action="#" th:action="@{/admin/type}" th:object="${type}">
+		<input id="id" name="id" th:value="${id}"> 
+		<input id="name" name="name" th:value="${name}"> 
+		<input id="description" name="description" th:value="${description}">
+		<button type="submit">Upsert</button>
+	</form>
+	<table id="types">
+		<thead>
+			<th>Name</th>
+			<th>Description</th>
+		</thead>
+		<tbody>
+			<tr th:each="type : ${types}">
+				<td th:text="*{type.name}">Onions</td>
+				<td th:text="*{type.description}">2.41</td>
+				<td><a name="edit" th:id="*{type.id}" href="#">Edit</a></td>
+				<td><a name="delete" th:id="*{type.id}" href="#">Remove</a></td>
+			</tr>
+		</tbody>
+
+	</table>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		$("[name=edit]").click(function(e) {
+			var url = /*[[@{/admin/type/}]]*/"";
+			$.get(url + $(e.target).attr("id"), function(data) {
+				$("#typeForm input#id").val(data.id);
+				$("#typeForm input#name").val(data.name);
+				$("#typeForm input#description").val(data.description);
+			});
+		});
+		$("[name=delete]").click(function(e) {
+			var url = /*[[@{/admin/type/delete/}]]*/"";
+			$.get(url + $(e.target).attr("id"), function(data) {
+				$(e.target).parents("tr").remove();
+			});
+		});
+		/*]]>*/
+	</script>
 </body>
 </html>

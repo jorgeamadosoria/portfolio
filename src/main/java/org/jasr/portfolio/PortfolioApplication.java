@@ -22,7 +22,7 @@ public class PortfolioApplication {
 	                  .and()
 	                  .antMatcher("/**").anonymous()
 	                  .and()
-	                  .formLogin();
+	                  .formLogin().defaultSuccessUrl("/admin/index");
 	          }
 
 	          @Override
