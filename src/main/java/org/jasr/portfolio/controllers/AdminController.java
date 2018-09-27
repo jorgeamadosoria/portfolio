@@ -2,12 +2,14 @@ package org.jasr.portfolio.controllers;
 
 import java.util.Optional;
 
+import javax.net.ssl.SSLEngineResult.Status;
+
 import org.jasr.portfolio.entities.Project;
-import org.jasr.portfolio.entities.Tag;
+import org.jasr.portfolio.entities.Tech;
 import org.jasr.portfolio.entities.Type;
 import org.jasr.portfolio.repositories.LinkRepository;
 import org.jasr.portfolio.repositories.ProjectRepository;
-import org.jasr.portfolio.repositories.TagRepository;
+import org.jasr.portfolio.repositories.TechRepository;
 import org.jasr.portfolio.repositories.TypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,14 +30,15 @@ public class AdminController {
     @Autowired
     private LinkRepository    linkRepository;
     @Autowired
-    private TagRepository     tagRepository;
+    private TechRepository     techRepository;
     @Autowired
     private ProjectRepository projectRepository;
 
     @GetMapping("/index")
     public String index(Model model) {
         model.addAttribute("types", typeRepository.findAll());
-        model.addAttribute("tags", tagRepository.findAll());
+        model.addAttribute("techs", techRepository.findAll());
+        model.addAttribute("statuses", Status.values());
         model.addAttribute("projects", projectRepository.findAll());
         return "/admin/index";
     }
@@ -57,21 +60,21 @@ public class AdminController {
         return new ResponseEntity<>(typeRepository.findById(id),HttpStatus.OK);
     }
     
-    @PostMapping("/tag")
-    public String upsertTag(@ModelAttribute Tag entity) {
-        tagRepository.saveAndFlush(entity);
+    @PostMapping("/tech")
+    public String upsertTech(@ModelAttribute Tech entity) {
+        techRepository.saveAndFlush(entity);
         return "redirect:/admin/index";
     }
 
     @GetMapping("/tag/delete/{id}")
-    public ResponseEntity<Void> deleteTag(@PathVariable Long id) {
-        tagRepository.deleteById(id);
+    public ResponseEntity<Void> deleteTech(@PathVariable Long id) {
+        techRepository.deleteById(id);
         return new ResponseEntity<>(null,HttpStatus.OK);
     }
     
-    @GetMapping("/tag/{id}")
-    public ResponseEntity<Optional<Tag>> tag(@PathVariable Long id) {
-        return new ResponseEntity<>(tagRepository.findById(id),HttpStatus.OK);
+    @GetMapping("/tech/{id}")
+    public ResponseEntity<Optional<Tech>> tech(@PathVariable Long id) {
+        return new ResponseEntity<>(techRepository.findById(id),HttpStatus.OK);
     }
     
     @PostMapping("/project")

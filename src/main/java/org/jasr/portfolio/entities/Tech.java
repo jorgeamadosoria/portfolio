@@ -3,9 +3,9 @@ package org.jasr.portfolio.entities;
 import javax.persistence.Entity;
 
 @Entity
-public class Tag extends BaseEntity{
+public class Tech extends BaseEntity{
     private String name;
-    private String description;
+    private String image;
 
     public String getName() {
         return name;
@@ -15,12 +15,13 @@ public class Tag extends BaseEntity{
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getImage() {
+        return image;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setImage(String image) {
+        this.image = image;
     }
+
 
 }

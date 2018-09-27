@@ -14,15 +14,34 @@ public class Project extends BaseEntity {
 	private String name;
 	private Integer year;
 	private String description;
+	private boolean available;
+	private String tags;
+	public Status status;
 	@ManyToOne
 	private Type type;
 	@ManyToMany
-	private Set<Tag> tags;
+	private Set<Tech> tech;
 	@OneToMany
 	@JoinColumn(name = "project_id")
 	private Set<Link> links;
 
-	public String getName() {
+	public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public String getName() {
 		return name;
 	}
 
@@ -54,15 +73,24 @@ public class Project extends BaseEntity {
 		this.type = type;
 	}
 
-	public Set<Tag> getTags() {
-		return tags;
-	}
 
-	public void setTags(Set<Tag> tags) {
-		this.tags = tags;
-	}
+	public String getTags() {
+        return tags;
+    }
 
-	public Set<Link> getLinks() {
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public Set<Tech> getTech() {
+        return tech;
+    }
+
+    public void setTech(Set<Tech> tech) {
+        this.tech = tech;
+    }
+
+    public Set<Link> getLinks() {
 		return links;
 	}
 

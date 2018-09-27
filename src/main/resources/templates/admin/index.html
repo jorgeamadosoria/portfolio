@@ -10,8 +10,8 @@
 </head>
 <body>
 	<form id="typeForm" method="post" action="#" th:action="@{/admin/type}" th:object="${type}">
-		<input id="id" name="id" th:value="${id}"> 
-		<input id="name" name="name" th:value="${name}"> 
+		<input id="id" name="id" th:value="${id}">
+		<input id="name" name="name" th:value="${name}">
 		<input id="description" name="description" th:value="${description}">
 		<button type="submit">Upsert</button>
 	</form>
@@ -24,41 +24,59 @@
 			<tr th:each="type : ${types}">
 				<td th:text="*{type.name}">Onions</td>
 				<td th:text="*{type.description}">2.41</td>
-				<td><a name="edit" th:id="*{type.id}" href="#">Edit</a></td>
-				<td><a name="delete" th:id="*{type.id}" href="#">Remove</a></td>
+				<td>
+					<a name="edit" th:id="*{type.id}" href="#">Edit</a>
+				</td>
+				<td>
+					<a name="delete" th:id="*{type.id}" href="#">Remove</a>
+				</td>
 			</tr>
 		</tbody>
 
 	</table>
 	<hr>
-	
-	<form id="tagForm" method="post" action="#" th:action="@{/admin/tag}" th:object="${tag}">
-		<input id="id" name="id" th:value="${id}"> 
-		<input id="name" name="name" th:value="${name}"> 
-		<input id="description" name="description" th:value="${description}">
+
+	<form id="techForm" method="post" action="#" th:action="@{/admin/tech}" th:object="${tech}">
+		<input id="id" name="id" th:value="${id}">
+		<input id="name" name="name" th:value="${name}">
+		<input id="logo" name="logo" th:value="${logo}">
 		<button type="submit">Upsert</button>
 	</form>
-	<table id="tags">
+	<table id="techs">
 		<thead>
 			<th>Name</th>
-			<th>Description</th>
+			<th>Logo</th>
 		</thead>
 		<tbody>
-			<tr th:each="tag : ${tags}">
-				<td th:text="*{tag.name}">Onions</td>
-				<td th:text="*{tag.description}">2.41</td>
-				<td><a name="edit" th:id="*{tag.id}" href="#">Edit</a></td>
-				<td><a name="delete" th:id="*{tag.id}" href="#">Remove</a></td>
+			<tr th:each="tech : ${techs}">
+				<td th:text="*{tech.name}">Onions</td>
+				<td th:text="*{tech.logo}">2.41</td>
+				<td>
+					<a name="edit" th:id="*{tech.id}" href="#">Edit</a>
+				</td>
+				<td>
+					<a name="delete" th:id="*{tech.id}" href="#">Remove</a>
+				</td>
 			</tr>
 		</tbody>
 
 	</table>
 	<hr>
-	<form id="projectForm" method="post" action="#" th:action="@{/admin/project}" th:object="${project}">
-		<input id="id" name="id" th:value="${id}"> 
-		<input id="name" name="name" th:value="${name}"> 
-		<input id="description" name="description" th:value="${description}">
-		<input id="year" name="year" th:value="${year}">
+	<form id="projectForm" method="post" action="#" th:action="@{/admin/project}">
+		<input id="id" name="id" />
+		<input type="checkbox" id="available" name="available" />
+		<input id="description" name="description" />
+		<!-- links -->
+		<input id="name" name="name" />
+		<select id="status" name="status">
+			<option th:each="status : ${statuses}" />
+		</select>
+		<input id="year" name="year" />
+		<textarea id="tags" name="tags"></textarea>
+		<!-- techs -->
+		<select id="type" name="type">
+			<option th:each="type : types" />
+		</select>
 		<button type="submit">Upsert</button>
 	</form>
 	<table id="projects">
@@ -68,20 +86,28 @@
 		</thead>
 		<tbody>
 			<tr th:each="project : ${projects}">
-				<td th:text="*{project.name}">Onions</td>
+				<td th:text="*{project.available}">YES</td>
 				<td th:text="*{project.description}">2.41</td>
-				<td th:text="*{project.year}">2041</td>
-				<td th:text="*{project.tags}">tag1,tag2,tag3</td>
 				<td th:text="*{project.links}">link1,link2,link3</td>
-				<td><a name="edit" th:id="*{project.id}" href="#">Edit</a></td>
-				<td><a name="delete" th:id="*{project.id}" href="#">Remove</a></td>
+				<td th:text="*{project.name}">Onions</td>
+				<td th:text="*{project.status}">ACTIVE</td>
+				<td th:text="*{project.tags}">tag1,tag2,tag3</td>
+				<td th:text="*{project.techs}">tech1,tech2,tech3</td>
+				<td th:text="*{project.type}">WEB</td>
+				<td th:text="*{project.year}">2041</td>
+				<td>
+					<a name="edit" th:id="*{project.id}" href="#">Edit</a>
+				</td>
+				<td>
+					<a name="delete" th:id="*{project.id}" href="#">Remove</a>
+				</td>
 			</tr>
 		</tbody>
 
 	</table>
 	<hr>
-	
-	
+
+
 	<script th:inline="javascript">
 		/*<![CDATA[*/
 		$("#types a[name=edit]").click(function(e) {
@@ -98,22 +124,22 @@
 				$(e.target).parents("tr").remove();
 			});
 		});
-		
-		$("#tags a[name=edit]").click(function(e) {
-			var url = /*[[@{/admin/tag/}]]*/"";
+
+		$("#techs a[name=edit]").click(function(e) {
+			var url = /*[[@{/admin/tech/}]]*/"";
 			$.get(url + $(e.target).attr("id"), function(data) {
-				$("#tagForm input#id").val(data.id);
-				$("#tagForm input#name").val(data.name);
-				$("#tagForm input#description").val(data.description);
+				$("#techForm input#id").val(data.id);
+				$("#techForm input#name").val(data.name);
+				$("#techForm input#logo").val(data.logo);
 			});
 		});
-		$("#tags a[name=delete]").click(function(e) {
-			var url = /*[[@{/admin/tag/delete/}]]*/"";
+		$("#techs a[name=delete]").click(function(e) {
+			var url = /*[[@{/admin/tech/delete/}]]*/"";
 			$.get(url + $(e.target).attr("id"), function(data) {
 				$(e.target).parents("tr").remove();
 			});
 		});
-		
+
 		$("#projects a[name=edit]").click(function(e) {
 			var url = /*[[@{/admin/project/}]]*/"";
 			$.get(url + $(e.target).attr("id"), function(data) {
@@ -121,9 +147,9 @@
 				$("#projectForm input#name").val(data.name);
 				$("#projectForm input#description").val(data.description);
 				$("#projectForm input#year").val(data.year);
-			//	$("#projectForm input#type").val(data.type);
-			//	$("#projectForm input#tags").val(data.tags);
-			//	$("#projectForm input#links").val(data.links);
+				//	$("#projectForm input#type").val(data.type);
+				//	$("#projectForm input#techs").val(data.techs);
+				//	$("#projectForm input#links").val(data.links);
 			});
 		});
 		$("#projects a[name=delete]").click(function(e) {
