@@ -2,6 +2,8 @@ package org.jasr.portfolio.controllers;
 
 import java.util.Optional;
 
+import org.jasr.portfolio.entities.Project;
+import org.jasr.portfolio.entities.Tag;
 import org.jasr.portfolio.entities.Type;
 import org.jasr.portfolio.repositories.LinkRepository;
 import org.jasr.portfolio.repositories.ProjectRepository;
@@ -39,19 +41,53 @@ public class AdminController {
     }
 
     @PostMapping("/type")
-    public String upsertType(@ModelAttribute Type type) {
-        typeRepository.saveAndFlush(type);
+    public String upsertType(@ModelAttribute Type entity) {
+        typeRepository.saveAndFlush(entity);
         return "redirect:/admin/index";
     }
 
     @GetMapping("/type/delete/{id}")
     public ResponseEntity<Void> deleteType(@PathVariable Long id) {
-        typeRepository.delete(new Type(id));
+        typeRepository.deleteById(id);
         return new ResponseEntity<>(null,HttpStatus.OK);
     }
     
     @GetMapping("/type/{id}")
     public ResponseEntity<Optional<Type>> type(@PathVariable Long id) {
-        return new ResponseEntity<Optional<Type>>(typeRepository.findById(id),HttpStatus.OK);
+        return new ResponseEntity<>(typeRepository.findById(id),HttpStatus.OK);
+    }
+    
+    @PostMapping("/tag")
+    public String upsertTag(@ModelAttribute Tag entity) {
+        tagRepository.saveAndFlush(entity);
+        return "redirect:/admin/index";
+    }
+
+    @GetMapping("/tag/delete/{id}")
+    public ResponseEntity<Void> deleteTag(@PathVariable Long id) {
+        tagRepository.deleteById(id);
+        return new ResponseEntity<>(null,HttpStatus.OK);
+    }
+    
+    @GetMapping("/tag/{id}")
+    public ResponseEntity<Optional<Tag>> tag(@PathVariable Long id) {
+        return new ResponseEntity<>(tagRepository.findById(id),HttpStatus.OK);
+    }
+    
+    @PostMapping("/project")
+    public String upsertProject(@ModelAttribute Project entity) {
+        projectRepository.saveAndFlush(entity);
+        return "redirect:/admin/index";
+    }
+
+    @GetMapping("/project/delete/{id}")
+    public ResponseEntity<Void> deleteProject(@PathVariable Long id) {
+        projectRepository.deleteById(id);
+        return new ResponseEntity<>(null,HttpStatus.OK);
+    }
+    
+    @GetMapping("/project/{id}")
+    public ResponseEntity<Optional<Project>> project(@PathVariable Long id) {
+        return new ResponseEntity<>(projectRepository.findById(id),HttpStatus.OK);
     }
 }
