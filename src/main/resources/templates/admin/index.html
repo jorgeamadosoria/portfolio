@@ -39,18 +39,18 @@
 	<form id="techForm" method="post" action="#" th:action="@{/admin/tech}" th:object="${tech}">
 		<input id="id" name="id" th:value="${id}">
 		<input id="name" name="name" th:value="${name}">
-		<input id="logo" name="logo" th:value="${logo}">
+		<input id="image" name="image" th:value="${image}">
 		<button type="submit">Upsert</button>
 	</form>
 	<table id="techs">
 		<thead>
 			<th>Name</th>
-			<th>Logo</th>
+			<th>Image</th>
 		</thead>
 		<tbody>
 			<tr th:each="tech : ${techs}">
 				<td th:text="*{tech.name}">Onions</td>
-				<td th:text="*{tech.logo}">2.41</td>
+				<td th:text="*{tech.image}">2.41</td>
 				<td>
 					<a name="edit" th:id="*{tech.id}" href="#">Edit</a>
 				</td>
@@ -65,24 +65,31 @@
 	<form id="projectForm" method="post" action="#" th:action="@{/admin/project}">
 		<input id="id" name="id" />
 		<input type="checkbox" id="available" name="available" />
-		<input id="description" name="description" />
+		<textarea id="description" name="description"></textarea>
 		<!-- links -->
 		<input id="name" name="name" />
 		<select id="status" name="status">
 			<option th:each="status : ${statuses}" />
 		</select>
-		<input id="year" name="year" />
 		<textarea id="tags" name="tags"></textarea>
 		<!-- techs -->
 		<select id="type" name="type">
-			<option th:each="type : types" />
+			<option th:each="type : ${types}" />
 		</select>
+		<input id="year" name="year" />
 		<button type="submit">Upsert</button>
 	</form>
 	<table id="projects">
 		<thead>
-			<th>Name</th>
+			<th>Available</th>
 			<th>Description</th>
+			<th>Links</th>
+			<th>Name</th>
+			<th>Status</th>
+			<th>Tags</th>
+			<th>Tech</th>
+			<th>Type</th>
+			<th>Year</th>
 		</thead>
 		<tbody>
 			<tr th:each="project : ${projects}">
@@ -130,7 +137,7 @@
 			$.get(url + $(e.target).attr("id"), function(data) {
 				$("#techForm input#id").val(data.id);
 				$("#techForm input#name").val(data.name);
-				$("#techForm input#logo").val(data.logo);
+				$("#techForm input#image").val(data.image);
 			});
 		});
 		$("#techs a[name=delete]").click(function(e) {

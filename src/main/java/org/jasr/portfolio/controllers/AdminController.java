@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminController {
     @Autowired
     private TypeRepository    typeRepository;
-    @Autowired
+    @Autowired	
     private LinkRepository    linkRepository;
     @Autowired
     private TechRepository     techRepository;
