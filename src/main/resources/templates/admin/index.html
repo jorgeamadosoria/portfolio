@@ -6,6 +6,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
@@ -24,18 +25,12 @@
 			<tr th:each="type : ${types}">
 				<td th:text="*{type.name}">Onions</td>
 				<td th:text="*{type.description}">2.41</td>
-				<td>
-					<a name="edit" th:id="*{type.id}" href="#">Edit</a>
-				</td>
-				<td>
-					<a name="delete" th:id="*{type.id}" href="#">Remove</a>
-				</td>
+				<td><a name="edit" th:id="*{type.id}" href="#">Edit</a></td>
+				<td><a name="delete" th:id="*{type.id}" href="#">Remove</a></td>
 			</tr>
 		</tbody>
-
 	</table>
 	<hr>
-
 	<form id="techForm" method="post" action="#" th:action="@{/admin/tech}" th:object="${tech}">
 		<input id="id" name="id" th:value="${id}">
 		<input id="name" name="name" th:value="${name}">
@@ -51,32 +46,32 @@
 			<tr th:each="tech : ${techs}">
 				<td th:text="*{tech.name}">Onions</td>
 				<td th:text="*{tech.image}">2.41</td>
-				<td>
-					<a name="edit" th:id="*{tech.id}" href="#">Edit</a>
-				</td>
-				<td>
-					<a name="delete" th:id="*{tech.id}" href="#">Remove</a>
-				</td>
+				<td><a name="edit" th:id="*{tech.id}" href="#">Edit</a></td>
+				<td><a name="delete" th:id="*{tech.id}" href="#">Remove</a></td>
 			</tr>
 		</tbody>
-
 	</table>
 	<hr>
 	<form id="projectForm" method="post" action="#" th:action="@{/admin/project}">
 		<input id="id" name="id" />
 		<input type="checkbox" id="available" name="available" />
 		<textarea id="description" name="description"></textarea>
-		<!-- links -->
 		<input id="name" name="name" />
 		<select id="status" name="status">
-			<option th:each="status : ${statuses}" />
+			<option th:each="status : ${statuses}" th:value="${status}" th:text="${status}"></option>
 		</select>
 		<textarea id="tags" name="tags"></textarea>
 		<!-- techs -->
 		<select id="type" name="type">
-			<option th:each="type : ${types}" />
+			<option th:each="type : ${types}" th:value="${type.id}" th:text="${type.name}"></option>
 		</select>
-		<input id="year" name="year" />
+		<input id="year" name="year" type="number" />
+		<div id="new_link" class="d-none">
+			<input id="display" name="display" />
+			<input id="name" name="name" />
+		</div>
+		<div id="links"></div>
+		<button id="new_link_button" type="button">New link</button>
 		<button type="submit">Upsert</button>
 	</form>
 	<table id="projects">
@@ -95,28 +90,32 @@
 			<tr th:each="project : ${projects}">
 				<td th:text="*{project.available}">YES</td>
 				<td th:text="*{project.description}">2.41</td>
-				<td th:text="*{project.links}">link1,link2,link3</td>
+				<td><span th:each="link : *{project.links}" th:text="|*{link.name} - ${link.display}|" /></td>
 				<td th:text="*{project.name}">Onions</td>
 				<td th:text="*{project.status}">ACTIVE</td>
 				<td th:text="*{project.tags}">tag1,tag2,tag3</td>
-				<td th:text="*{project.techs}">tech1,tech2,tech3</td>
-				<td th:text="*{project.type}">WEB</td>
+				<td th:text="*{project.tech}">tech1,tech2,tech3</td>
+				<td th:text="*{project.type.name}">WEB</td>
 				<td th:text="*{project.year}">2041</td>
-				<td>
-					<a name="edit" th:id="*{project.id}" href="#">Edit</a>
-				</td>
-				<td>
-					<a name="delete" th:id="*{project.id}" href="#">Remove</a>
-				</td>
+				<td><a name="edit" th:id="*{project.id}" href="#">Edit</a></td>
+				<td><a name="delete" th:id="*{project.id}" href="#">Remove</a></td>
 			</tr>
 		</tbody>
-
 	</table>
 	<hr>
-
-
 	<script th:inline="javascript">
 		/*<![CDATA[*/
+		function addLink(display, name, idx) {
+			var newLink = $("#projectForm #new_link").clone();
+			$(newLink).prop("id","").toggleClass("d-none");
+			$(newLink).find("#display")
+					.prop("id", "links[" + idx + "].display").prop("name",
+							"links[" + idx + "].display").val(display);
+			$(newLink).find("#name").prop("id", "links[" + idx + "].name")
+					.prop("name", "links[" + idx + "].name").val(name);
+			$("#projectForm #links").append(newLink);
+		};
+
 		$("#types a[name=edit]").click(function(e) {
 			var url = /*[[@{/admin/type/}]]*/"";
 			$.get(url + $(e.target).attr("id"), function(data) {
@@ -147,16 +146,26 @@
 			});
 		});
 
+		$("#new_link_button").click(function(e) {
+			var count = $("#projectForm #links > div").length;
+			addLink(null, null, count);
+		});
+
 		$("#projects a[name=edit]").click(function(e) {
 			var url = /*[[@{/admin/project/}]]*/"";
 			$.get(url + $(e.target).attr("id"), function(data) {
-				$("#projectForm input#id").val(data.id);
-				$("#projectForm input#name").val(data.name);
-				$("#projectForm input#description").val(data.description);
-				$("#projectForm input#year").val(data.year);
-				//	$("#projectForm input#type").val(data.type);
-				//	$("#projectForm input#techs").val(data.techs);
-				//	$("#projectForm input#links").val(data.links);
+				$("#projectForm #id").val(data.id);
+				$("#projectForm #available").prop("checked", data.available);
+				$("#projectForm #description").val(data.description);
+				$("#projectForm #name").val(data.name);
+				$("#projectForm #status").val(data.status);
+				$("#projectForm #year").val(data.year);
+				$("#projectForm #tags").val(data.tags);
+				$("#projectForm #type").val(data.type.id);
+				$("#projectForm #tech").val(data.tech);
+				for (var i = 0; i < data.links.length; i++) {
+					addLink(data.links[i].display, data.links[i].name, i);
+				}
 			});
 		});
 		$("#projects a[name=delete]").click(function(e) {

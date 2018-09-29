@@ -13,7 +13,7 @@ public class Type extends BaseEntity{
     @OneToMany
     private Set<Project> projects;
     
-    public Type() {
+	public Type() {
         super();
     }
 

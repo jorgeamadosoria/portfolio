@@ -2,9 +2,8 @@ package org.jasr.portfolio.controllers;
 
 import java.util.Optional;
 
-import javax.net.ssl.SSLEngineResult.Status;
-
 import org.jasr.portfolio.entities.Project;
+import org.jasr.portfolio.entities.Status;
 import org.jasr.portfolio.entities.Tech;
 import org.jasr.portfolio.entities.Type;
 import org.jasr.portfolio.repositories.LinkRepository;

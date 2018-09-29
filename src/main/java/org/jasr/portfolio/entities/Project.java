@@ -1,5 +1,6 @@
 package org.jasr.portfolio.entities;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -7,6 +8,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 @Entity
 public class Project extends BaseEntity {
@@ -23,7 +27,8 @@ public class Project extends BaseEntity {
 	private Set<Tech> tech;
 	@OneToMany
 	@JoinColumn(name = "project_id")
-	private Set<Link> links;
+	@Cascade({CascadeType.ALL})
+	private List<Link> links;
 
 	public boolean isAvailable() {
         return available;
@@ -90,11 +95,11 @@ public class Project extends BaseEntity {
         this.tech = tech;
     }
 
-    public Set<Link> getLinks() {
+    public List<Link> getLinks() {
 		return links;
 	}
 
-	public void setLinks(Set<Link> links) {
+	public void setLinks(List<Link> links) {
 		this.links = links;
 	}
 
