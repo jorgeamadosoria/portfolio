@@ -15,6 +15,7 @@ import org.hibernate.annotations.CascadeType;
 @Entity
 public class Project extends BaseEntity {
 
+	private String image;
 	private String name;
 	private Integer year;
 	private String description;
@@ -29,6 +30,14 @@ public class Project extends BaseEntity {
 	@JoinColumn(name = "project_id")
 	@Cascade({CascadeType.ALL})
 	private List<Link> links;
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
 
 	public boolean isAvailable() {
         return available;

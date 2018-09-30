@@ -36,7 +36,7 @@ public class AdminController {
     @GetMapping("/index")
     public String index(Model model) {
         model.addAttribute("types", typeRepository.findAll());
-        model.addAttribute("techs", techRepository.findAll());
+        model.addAttribute("tech", techRepository.findAll());
         model.addAttribute("statuses", Status.values());
         model.addAttribute("projects", projectRepository.findAll());
         return "/admin/index";
@@ -65,7 +65,7 @@ public class AdminController {
         return "redirect:/admin/index";
     }
 
-    @GetMapping("/tag/delete/{id}")
+    @GetMapping("/tech/delete/{id}")
     public ResponseEntity<Void> deleteTech(@PathVariable Long id) {
         techRepository.deleteById(id);
         return new ResponseEntity<>(null,HttpStatus.OK);
