@@ -2,15 +2,17 @@ package org.jasr.portfolio;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.Ordered;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
-public class PortfolioApplication {
+public class PortfolioApplication implements WebMvcConfigurer {
 	
 	@Bean
 	  public WebSecurityConfigurerAdapter webSecurityConfig() {
@@ -22,7 +24,9 @@ public class PortfolioApplication {
 	                  .and()
 	                  .antMatcher("/**").anonymous()
 	                  .and()
-	                  .formLogin().defaultSuccessUrl("/admin/index");
+	                  .logout().permitAll()
+	                  .and()
+	                  .formLogin().loginPage("/login").loginProcessingUrl("/login").defaultSuccessUrl("/admin/index").permitAll();
 	          }
 
 	          @Override
@@ -34,6 +38,12 @@ public class PortfolioApplication {
 	          }
 	      };
 	  }
+	
+	@Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/login").setViewName("login");
+        registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
+    }
 
 
 	public static void main(String[] args) {

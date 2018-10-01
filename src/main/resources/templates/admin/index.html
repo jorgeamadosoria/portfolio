@@ -26,6 +26,9 @@
 					<li class="nav-item"><a class="nav-link" href="/admin/index">Admin</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">Github</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">About</a></li>
+					<form method="post" action="#" th:action="@{/logout}">
+						<button type="submit">Logout</button>
+					</form>
 				</ul>
 			</div>
 		</div>
@@ -35,9 +38,7 @@
 			<div class="container">
 				<h1>Types</h1>
 				<form id="typeForm" method="post" action="#" th:action="@{/admin/type}" th:object="${type}">
-					<input type="hidden" id="id" name="id" th:value="${id}">
-					<input id="name" name="name" th:value="${name}">
-					<input id="description" name="description" th:value="${description}">
+					<input type="hidden" id="id" name="id" th:value="${id}"> <input id="name" name="name" th:value="${name}"> <input id="description" name="description" th:value="${description}">
 					<button type="submit">Upsert</button>
 				</form>
 				<table id="types">
@@ -60,9 +61,7 @@
 			<div class="container">
 				<h1>Tech</h1>
 				<form id="techForm" method="post" action="#" th:action="@{/admin/tech}" th:object="${tech}">
-					<input type="hidden" id="id" name="id" th:value="${id}">
-					<input id="name" name="name" th:value="${name}">
-					<input id="image" name="image" th:value="${image}">
+					<input type="hidden" id="id" name="id" th:value="${id}"> <input id="name" name="name" th:value="${name}"> <input id="image" name="image" th:value="${image}">
 					<button type="submit">Upsert</button>
 				</form>
 				<table id="tech">
@@ -85,29 +84,23 @@
 			<div class="container">
 				<h1>Projects</h1>
 				<form id="projectForm" method="post" action="#" th:action="@{/admin/project}">
-					<input type="hidden" id="id" name="id" />
-					<input type="checkbox" id="available" name="available" />
+					<input type="hidden" id="id" name="id" /> <input type="checkbox" id="available" name="available" />
 					<textarea id="description" name="description"></textarea>
-					<input id="image" name="image" />
-					<input id="name" name="name" />
-					<select id="status" name="status">
+					<input id="image" name="image" /> <input id="name" name="name" /> <select id="status" name="status">
 						<option th:each="status : ${statuses}" th:value="${status}" th:text="${status}"></option>
-					</select>
-					<input id="tags" name="tags" data-role="tagsinput" />
+					</select> <input id="tags" name="tags" data-role="tagsinput" />
 					<div>
 						<input type="checkbox" id="tech" name="tech" th:each="t : ${tech}" th:value="${t.id}" th:text="${t.name}" />
 					</div>
 					<select id="type" name="type">
 						<option th:each="type : ${types}" th:value="${type.id}" th:text="${type.name}" />
-					</select>
-					<input id="year" name="year" type="number" />
+					</select> <input id="year" name="year" type="number" />
 					<div id="links"></div>
 					<button id="new_link_button" type="button">New link</button>
 					<button type="submit">Upsert</button>
 				</form>
 				<div id="new_link" class="link d-none">
-					<input id="display" name="display" />
-					<input id="name" name="name" />
+					<input id="display" name="display" /> <input id="name" name="name" />
 					<button id="remove" type="button">Remove</button>
 				</div>
 				<table id="projects">
@@ -132,7 +125,7 @@
 							<td th:text="*{project.name}">Onions</td>
 							<td th:text="*{project.status}">ACTIVE</td>
 							<td th:text="*{project.tags}">tag1,tag2,tag3</td>
-							<td> <span th:each="tech : *{project.tech}"><img class="tech" th:src="*{tech.image}" /><span th:text="*{tech.name}" /></span></td>
+							<td><span th:each="tech : *{project.tech}"><img class="tech" th:src="*{tech.image}" /><span th:text="*{tech.name}" /></span></td>
 							<td th:text="*{project.type.name}">WEB</td>
 							<td th:text="*{project.year}">2041</td>
 							<td><a name="edit" th:id="*{project.id}" href="#">Edit</a></td>
