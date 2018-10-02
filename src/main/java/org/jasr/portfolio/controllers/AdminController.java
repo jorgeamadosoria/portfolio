@@ -88,8 +88,5 @@ public class AdminController {
         return new ResponseEntity<>(null,HttpStatus.OK);
     }
     
-    @GetMapping("/project/{id}")
-    public ResponseEntity<Optional<Project>> project(@PathVariable Long id) {
-        return new ResponseEntity<>(projectRepository.findById(id),HttpStatus.OK);
-    }
+
 }

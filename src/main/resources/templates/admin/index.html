@@ -195,7 +195,7 @@
 
 		$("#projects a[name=edit]").click(
 				function(e) {
-					var url = /*[[@{/admin/project/}]]*/"";
+					var url = /*[[@{/project/}]]*/"";
 					$.get(url + $(e.target).attr("id"), function(data) {
 						$("#projectForm #id").val(data.id);
 						$("#projectForm #available").prop("checked",
