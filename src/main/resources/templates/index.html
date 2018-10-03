@@ -16,6 +16,10 @@
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 		<div class="container">
 			<a class="navbar-brand" href="#">My Portfolio</a>
+				<form id="search-form" method="post" action="#" th:action="@{/search}">
+					<input id="search" />
+					<button type="submit">Search</button>
+				</form>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -39,14 +43,14 @@
 			Page Heading <small>Secondary Text</small>
 		</h1>
 		<div class="row" id="projects">
-			<div th:each="proj: ${projects}" class="project col-lg-4 col-sm-6">
+			<div th:each="proj: ${projects}" th:id="*{proj.id}" class="project col-lg-4 col-sm-6">
 				<div class="card h-100">
 					<div class="h-50">
-						<a th:id="*{proj.id}" class="project_link" href="#" data-target="#projectModal"><img class="card-img-top h-100" src="http://placehold.it/700x400" th:src="*{proj.image}"></a>
+						<a class="project_link" href="#" data-toggle="modal" data-target="#projectModal"><img class="card-img-top card-project-image h-100" src="http://placehold.it/700x400" th:src="*{proj.image}"></a>
 					</div>
 					<div class="card-body">
 						<h4 class="card-title">
-							<a th:id="*{proj.id}" class="project_link" href="#" data-toggle="modal" data-target="#projectModal" th:text="*{proj.name}"></a>
+							<a class="project_link" href="#" data-toggle="modal" data-target="#projectModal" th:text="*{proj.name}"></a>
 						</h4>
 						<p class="card-text" th:text="*{proj.description}"></p>
 					</div>
@@ -59,7 +63,7 @@
 	<!-- Footer -->
 	<footer class="py-3 bg-dark">
 		<div class="container">
-			<p class="m-0 text-center text-white">My portfolio 2018</p>
+			<p class="m-0 text-center text-white">My portfolio</p>
 		</div>
 		<!-- /.container -->
 	</footer>
@@ -78,7 +82,7 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-md-8">
-								<img id="image" class="img-fluid" src="http://placehold.it/750x500">
+								<img id="image" class="modal-project-image img-fluid" src="http://placehold.it/750x500">
 							</div>
 							<div class="col-md-4">
 								<ul>
@@ -104,12 +108,15 @@
 								</a>
 							</div>
 						</div>
+						<h3 class="my-4">Links</h3>
+						<div class="row" id="links">
+							<div class="link_item d-none col-md-12 col-sm-12 mb-12">
+								<a href="#" target="new">link</a>
+							</div>
+						</div>
 						<h3 class="my-4">Tags</h3>
 						<div class="row" id="tags">
-							<div class="tag_item col-md-1 col-sm-1 mb-1 d-none"></div>
-						</div>
-						<div class="row" id="links">
-							<div class="link_item d-none"><a href="#" target="new">link</a></div>
+							<span class="tag_item col-md-1 col-sm-1 mb-1 d-none badge badge-pill badge-dark"></span>
 						</div>
 					</div>
 				</div>
@@ -121,41 +128,93 @@
 	</div>
 </body>
 <script>
-	$("#projects").on(
-			"click",
-			"a.project_link",
-			function(e) {
-				var url = /*[[@{/project/}]]*/"/project/";
-				$.get(url + $(e.target).attr("id"), function(data) {
-					$("#tech .tech_item").not(".d-none").remove();
-					$("#tags .tag_item").not(".d-none").remove();
-					$("#link .link_item").not(".d-none").remove();
+	$("#projects")
+			.on(
+					"click",
+					"a.project_link",
+					function(e) {
+						var url = /*[[@{/project/}]]*/"/project/";
+						$
+								.get(
+										url
+												+ $(e.target).parents(
+														"div.project").attr(
+														"id"),
+										function(data) {
+											$(
+													"#projectModal #tech .tech_item:not(.d-none)")
+													.remove();
+											$(
+													"#projectModal #tags .tag_item:not(.d-none)")
+													.remove();
+											$(
+													"#projectModal #link .link_item:not(.d-none)")
+													.remove();
 
-					$("#projectModal #available").text(data.available ? "Yes" : "No");
-					$("#projectModal #description").text(data.description);
-					$("#projectModal #name").text(data.name);
-					$("#projectModal #image").prop("src",data.image);
-					$("#projectModal #status").text(data.status);
-					$("#projectModal #year").text(data.year);
-					$("#projectModal #type").text(data.type.name);
-					for (var i = 0; i < data.tech.length; i++) {
-						$("#projectModal #tech").append($(".tech_item.d-none").clone()
-								.toggleClass("d-none").find("img.tech").prop(
-										"src", data.tech[i].image));
-					}
-					var tags = data.tags.split(",");
-					for (var i = 0; i < tags.length; i++) {
-						$("#projectModal #tags").append(
-								$(".tag_item.d-none").clone().toggleClass(
-										"d-none").text(tags[i]));
-					}
-					for (var i = 0; i < data.links.length; i++) {
-						$("#projectModal #links").append(
-								$(".link_item.d-none").clone().toggleClass(
-								"d-none").find("a").prop("href",data.links[i].display).text(data.links[i].name));
-					}
-				});
-			});
+											$("#projectModal #available").text(
+													data.available ? "Yes"
+															: "No");
+											$("#projectModal #description")
+													.text(data.description);
+											$("#projectModal #name").text(
+													data.name);
+											$("#projectModal #image").prop(
+													"src", data.image);
+											$("#projectModal #status").text(
+													data.status);
+											$("#projectModal #year").text(
+													data.year);
+											$("#projectModal #type").text(
+													data.type.name);
+											for (var i = 0; i < data.tech.length; i++) {
+												$("#projectModal #tech")
+														.append(
+																$(
+																		".tech_item.d-none")
+																		.clone()
+																		.toggleClass(
+																				"d-none")
+																		.find(
+																				"img.tech")
+																		.prop(
+																				"src",
+																				data.tech[i].image)
+																		.prop(
+																				"title",
+																				data.tech[i].name)
+																		.end());
+											}
+											var tags = data.tags.split(",");
+											for (var i = 0; i < tags.length; i++) {
+												$("#projectModal #tags")
+														.append(
+																$(
+																		".tag_item.d-none.badge")
+																		.clone()
+																		.toggleClass(
+																				"d-none")
+																		.text(
+																				tags[i]));
+											}
+											for (var i = 0; i < data.links.length; i++) {
+												$("#projectModal #links")
+														.append(
+																$(
+																		".link_item.d-none")
+																		.clone()
+																		.toggleClass(
+																				"d-none")
+																		.find(
+																				"a")
+																		.prop(
+																				"href",
+																				data.links[i].display)
+																		.text(
+																				data.links[i].name)
+																		.end());
+											}
+										});
+					});
 </script>
 </html>
 </body>

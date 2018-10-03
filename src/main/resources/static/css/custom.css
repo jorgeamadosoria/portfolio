@@ -27,3 +27,21 @@ footer {
 	width:100px;
 	height:100px;
 }
+
+ .modal-project-image { 
+ 	max-width:700px; 
+ 	max-height:300px;
+ 	display: block;
+    margin-left: auto;
+    margin-right: auto;
+ } 
+.tag_item {
+	margin: 2px;
+}
+ .card-project-image { 
+ 	max-width:700px; 
+ 	max-height:300px; 
+ 	display: block;
+    margin-left: auto;
+    margin-right: auto;
+ } 

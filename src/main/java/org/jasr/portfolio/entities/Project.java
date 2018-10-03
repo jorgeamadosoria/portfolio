@@ -3,6 +3,7 @@ package org.jasr.portfolio.entities;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -18,6 +19,7 @@ public class Project extends BaseEntity {
 	private String image;
 	private String name;
 	private Integer year;
+	@Column(columnDefinition="TEXT")
 	private String description;
 	private boolean available;
 	private String tags;

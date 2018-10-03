@@ -38,7 +38,7 @@
 			<div class="container">
 				<h1>Types</h1>
 				<form id="typeForm" method="post" action="#" th:action="@{/admin/type}" th:object="${type}">
-					<input type="hidden" id="id" name="id" th:value="${id}"> <input id="name" name="name" th:value="${name}"> <input id="description" name="description" th:value="${description}">
+					<input type="hidden" id="id" name="id"> <input id="name" name="name" maxlength="255"> <input id="description" name="description" maxlength="255">
 					<button type="submit">Upsert</button>
 				</form>
 				<table id="types">
@@ -61,7 +61,7 @@
 			<div class="container">
 				<h1>Tech</h1>
 				<form id="techForm" method="post" action="#" th:action="@{/admin/tech}" th:object="${tech}">
-					<input type="hidden" id="id" name="id" th:value="${id}"> <input id="name" name="name" th:value="${name}"> <input id="image" name="image" th:value="${image}">
+					<input type="hidden" id="id" name="id" th:value="${id}"> <input id="name" name="name" maxlength="255"> <input id="image" name="image" maxlength="255">
 					<button type="submit">Upsert</button>
 				</form>
 				<table id="tech">
@@ -86,9 +86,9 @@
 				<form id="projectForm" method="post" action="#" th:action="@{/admin/project}">
 					<input type="hidden" id="id" name="id" /> <input type="checkbox" id="available" name="available" />
 					<textarea id="description" name="description"></textarea>
-					<input id="image" name="image" /> <input id="name" name="name" /> <select id="status" name="status">
+					<input id="image" name="image" /> <input id="name" name="name" maxlength="255"/> <select id="status" name="status">
 						<option th:each="status : ${statuses}" th:value="${status}" th:text="${status}"></option>
-					</select> <input id="tags" name="tags" data-role="tagsinput" />
+					</select> <input id="tags" maxlength="255" name="tags" data-role="tagsinput" />
 					<div>
 						<input type="checkbox" id="tech" name="tech" th:each="t : ${tech}" th:value="${t.id}" th:text="${t.name}" />
 					</div>
@@ -100,7 +100,7 @@
 					<button type="submit">Upsert</button>
 				</form>
 				<div id="new_link" class="link d-none">
-					<input id="display" name="display" /> <input id="name" name="name" />
+					<input id="display" maxlength="255" name="display" /> <input id="name" name="name" maxlength="255"/>
 					<button id="remove" type="button">Remove</button>
 				</div>
 				<table id="projects">

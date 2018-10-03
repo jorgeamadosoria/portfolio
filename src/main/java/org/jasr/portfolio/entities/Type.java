@@ -2,6 +2,7 @@ package org.jasr.portfolio.entities;
 
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -9,6 +10,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class Type extends BaseEntity{
     private String name;
+    @Column(columnDefinition="TEXT")
     private String description;
     @OneToMany
     private Set<Project> projects;
