@@ -22,125 +22,184 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a class="nav-link" href="/index" th:href="@{/index}">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="/admin/index" th:href="@{/admin/index}">Admin</a></li>
-					<li class="nav-item"><a class="nav-link" href="https://github.com/jorgeamadosoria/portfolio">Github</a></li>
-					<li class="nav-item"><a class="nav-link" href="#"  th:href="@{/about}">About</a></li>
-					<form method="post" action="#" th:action="@{/logout}">
-						<button type="submit">Logout</button>
-					</form>
+					<li class="nav-item">
+						<a class="nav-link" href="/index" th:href="@{/index}">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="https://github.com/jorgeamadosoria/portfolio">Github</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#" th:href="@{/about}">About</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/admin/index" th:href="@{/admin/index}">Admin</a>
+					</li>
+					<li class="nav-item" sec:authorize="isAuthenticated()">
+						<form method="post" action="#" th:action="@{/logout}">
+							<button type="submit" class="btn btn-link">Logout</button>
+						</form>
+					</li>
 				</ul>
 			</div>
 		</div>
 	</nav>
-	<div id="content">
-		<section>
-			<div class="container">
-				<h1>Types</h1>
-				<form id="typeForm" method="post" action="#" th:action="@{/admin/type}" th:object="${type}">
-					<input type="hidden" id="id" name="id"> <input id="name" name="name" maxlength="255"> <input id="description" name="description" maxlength="255">
-					<button type="submit">Upsert</button>
-				</form>
-				<table id="types">
-					<thead>
-						<th>Name</th>
-						<th>Description</th>
-					</thead>
-					<tbody>
-						<tr th:each="type : ${types}">
-							<td th:text="*{type.name}">Onions</td>
-							<td th:text="*{type.description}">2.41</td>
-							<td><a name="edit" th:id="*{type.id}" href="#">Edit</a></td>
-							<td><a name="delete" th:id="*{type.id}" href="#">Remove</a></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</section>
-		<section class="color">
-			<div class="container">
-				<h1>Tech</h1>
-				<form id="techForm" method="post" action="#" th:action="@{/admin/tech}" th:object="${tech}">
-					<input type="hidden" id="id" name="id" th:value="${id}"> <input id="name" name="name" maxlength="255"> <input id="image" name="image" maxlength="255">
-					<button type="submit">Upsert</button>
-				</form>
-				<table id="tech">
-					<thead>
-						<th>Name</th>
-						<th>Image</th>
-					</thead>
-					<tbody>
-						<tr th:each="tech : ${tech}">
-							<td th:text="*{tech.name}">Onions</td>
-							<td><img class="tech" th:src="*{tech.image}" /></td>
-							<td><a name="edit" th:id="*{tech.id}" href="#">Edit</a></td>
-							<td><a name="delete" th:id="*{tech.id}" href="#">Remove</a></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</section>
-		<section>
-			<div class="container">
-				<h1>Projects</h1>
-				<form id="projectForm" method="post" action="#" th:action="@{/admin/project}">
-					<input type="hidden" id="id" name="id" /> <input type="checkbox" id="available" name="available" />
-					<textarea id="description" name="description"></textarea>
-					<input id="image" name="image" /> <input id="name" name="name" maxlength="255"/> <select id="status" name="status">
-						<option th:each="status : ${statuses}" th:value="${status}" th:text="${status}"></option>
-					</select> <input id="tags" maxlength="255" name="tags" data-role="tagsinput" />
-					<div>
-						<input type="checkbox" id="tech" name="tech" th:each="t : ${tech}" th:value="${t.id}" th:text="${t.name}" />
+	<div class="container">
+		<div id="row">
+			<div id="col-lg-12">
+				<ul class="nav nav-tabs" id="adminTab" role="tablist">
+					<li class="nav-item">
+						<a class="nav-link active" id="projects-tab" data-toggle="tab" href="#projects" role="tab" aria-controls="projects" aria-selected="true">Projects</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="techs-tab" data-toggle="tab" href="#techs" role="tab" aria-controls="techs" aria-selected="false">Tech</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="types-tab" data-toggle="tab" href="#types" role="tab" aria-controls="types" aria-selected="false">Types</a>
+					</li>
+				</ul>
+				<div class="tab-content" id="adminTabContent">
+					<div class="tab-pane fade show active" id="projects" role="tabpanel" aria-labelledby="projects-tab">
+						<br />
+						<form id="projectForm" class="form-inline" method="post" action="#" th:action="@{/admin/project}">
+							<input type="hidden" id="id" name="id">
+							<input type="checkbox" id="available" name="available" class="form-control" />
+							<textarea id="description" name="description" class="form-control"></textarea>
+							<input id="image" name="image" class="form-control" />
+							<input id="name" name="name" maxlength="255" class="form-control" />
+							<select id="status" name="status" class="form-control">
+								<option th:each="status : ${statuses}" th:value="${status}" th:text="${status}"></option>
+							</select>
+							<input id="tags" maxlength="255" name="tags" data-role="tagsinput" class="form-control" />
+							<div>
+								<input type="checkbox" class="form-control" id="tech" name="tech" th:each="t : ${tech}" th:value="${t.id}" th:text="${t.name}" />
+							</div>
+							<select id="type" name="type" class="form-control">
+								<option th:each="type : ${types}" th:value="${type.id}" th:text="${type.name}" />
+							</select>
+							<input id="year" name="year" type="number" class="form-control" />
+							<div id="links"></div>
+							<button id="new_link_button" type="button" class="btn btn-secondary">New link</button>
+							<button type="submit" class="btn btn-secondary">Upsert</button>
+						</form>
+						<div id="new_link" class="link d-none">
+							<input id="display" maxlength="255" name="display" class="form-control" />
+							<input id="name" name="name" maxlength="255" class="form-control" />
+							<button id="remove" type="button" class="btn btn-secondary">Remove</button>
+						</div>
+						<table id="projects">
+							<thead>
+								<th>Available</th>
+								<th>Description</th>
+								<th>Links</th>
+								<th>Logo</th>
+								<th>Name</th>
+								<th>Status</th>
+								<th>Tags</th>
+								<th>Tech</th>
+								<th>Type</th>
+								<th>Year</th>
+							</thead>
+							<tbody>
+								<tr th:each="project : ${projects}">
+									<td th:text="*{project.available}">YES</td>
+									<td th:text="*{project.description}">2.41</td>
+									<td>
+										<span th:each="link : *{project.links}" th:text="|*{link.name} - ${link.display}|" />
+									</td>
+									<td>
+										<img class="logo" src="http://placehold.it/500x300" th:src="*{project.image}" />
+									</td>
+									<td th:text="*{project.name}">Onions</td>
+									<td th:text="*{project.status}">ACTIVE</td>
+									<td th:text="*{project.tags}">tag1,tag2,tag3</td>
+									<td>
+										<span th:each="tech : *{project.tech}">
+											<img class="tech" th:src="*{tech.image}" />
+											<span th:text="*{tech.name}" /></span>
+									</td>
+									<td th:text="*{project.type.name}">WEB</td>
+									<td th:text="*{project.year}">2041</td>
+									<td>
+										<a name="edit" th:id="*{project.id}" href="#">Edit</a>
+									</td>
+									<td>
+										<a name="delete" th:id="*{project.id}" href="#">Remove</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
-					<select id="type" name="type">
-						<option th:each="type : ${types}" th:value="${type.id}" th:text="${type.name}" />
-					</select> <input id="year" name="year" type="number" />
-					<div id="links"></div>
-					<button id="new_link_button" type="button">New link</button>
-					<button type="submit">Upsert</button>
-				</form>
-				<div id="new_link" class="link d-none">
-					<input id="display" maxlength="255" name="display" /> <input id="name" name="name" maxlength="255"/>
-					<button id="remove" type="button">Remove</button>
+					<div class="tab-pane fade" id="techs" role="tabpanel" aria-labelledby="techs-tab">
+						<br />
+						<form id="techForm" method="post" class="form-inline" action="#" th:action="@{/admin/tech}" th:object="${tech}">
+							<input type="hidden" id="id" name="id" th:value="${id}">
+							<input id="name" name="name" maxlength="255" class="form-control">
+							<input id="image" name="image" maxlength="255" class="form-control">
+							<button type="submit" class="btn btn-secondary">Upsert</button>
+						</form>
+						<table id="tech">
+							<thead>
+								<th>Name</th>
+								<th>Image</th>
+							</thead>
+							<tbody>
+								<tr th:each="tech : ${tech}">
+									<td th:text="*{tech.name}">Onions</td>
+									<td>
+										<img class="tech" th:src="*{tech.image}" />
+									</td>
+									<td>
+										<a name="edit" th:id="*{tech.id}" href="#">Edit</a>
+									</td>
+									<td>
+										<a name="delete" th:id="*{tech.id}" href="#">Remove</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="tab-pane fade" id="types" role="tabpanel" aria-labelledby="types-tab">
+						<br />
+						<form id="typeForm" method="post" class="form-inline" action="#" th:action="@{/admin/type}" th:object="${type}">
+							<input type="hidden" id="id" name="id">
+							<div class="form-group">
+								<label for="name" class="col-form-label">Name</label>
+								<input id="name" name="name" maxlength="255" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="description" class="col-form-label">Description</label>
+								<input id="description" name="description" maxlength="255" class="form-control">
+							</div>
+							<div class="form-group">
+								<button type="submit" class="btn btn-secondary">Upsert</button>
+							</div>
+						</form>
+						<table id="types">
+							<thead>
+								<th>Name</th>
+								<th>Description</th>
+							</thead>
+							<tbody>
+								<tr th:each="type : ${types}">
+									<td th:text="*{type.name}">Onions</td>
+									<td th:text="*{type.description}">2.41</td>
+									<td>
+										<a name="edit" th:id="*{type.id}" href="#">Edit</a>
+									</td>
+									<td>
+										<a name="delete" th:id="*{type.id}" href="#">Remove</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
-				<table id="projects">
-					<thead>
-						<th>Available</th>
-						<th>Description</th>
-						<th>Links</th>
-						<th>Logo</th>
-						<th>Name</th>
-						<th>Status</th>
-						<th>Tags</th>
-						<th>Tech</th>
-						<th>Type</th>
-						<th>Year</th>
-					</thead>
-					<tbody>
-						<tr th:each="project : ${projects}">
-							<td th:text="*{project.available}">YES</td>
-							<td th:text="*{project.description}">2.41</td>
-							<td><span th:each="link : *{project.links}" th:text="|*{link.name} - ${link.display}|" /></td>
-							<td><img class="logo" src="http://placehold.it/500x300" th:src="*{project.image}" /></td>
-							<td th:text="*{project.name}">Onions</td>
-							<td th:text="*{project.status}">ACTIVE</td>
-							<td th:text="*{project.tags}">tag1,tag2,tag3</td>
-							<td><span th:each="tech : *{project.tech}"><img class="tech" th:src="*{tech.image}" /><span th:text="*{tech.name}" /></span></td>
-							<td th:text="*{project.type.name}">WEB</td>
-							<td th:text="*{project.year}">2041</td>
-							<td><a name="edit" th:id="*{project.id}" href="#">Edit</a></td>
-							<td><a name="delete" th:id="*{project.id}" href="#">Remove</a></td>
-						</tr>
-					</tbody>
-				</table>
 			</div>
-		</section>
+		</div>
+
+
 	</div>
 	<!-- #main -->
-	<footer>
-		<div id="info-bar"></div>
-		<!-- /#top-bar -->
-	</footer>
 	<script th:inline="javascript">
 		/*<![CDATA[*/
 		$("div#links").on("click", "button#remove", function(e) {
