@@ -60,31 +60,72 @@
 				<div class="tab-content" id="adminTabContent">
 					<div class="tab-pane fade show active" id="projects" role="tabpanel" aria-labelledby="projects-tab">
 						<br />
-						<form id="projectForm" class="form-inline" method="post" action="#" th:action="@{/admin/project}">
+						<form id="projectForm" method="post" action="#" th:action="@{/admin/project}">
 							<input type="hidden" id="id" name="id">
-							<input type="checkbox" id="available" name="available" class="form-control" />
-							<textarea id="description" name="description" class="form-control"></textarea>
-							<input id="image" name="image" class="form-control" />
-							<input id="name" name="name" maxlength="255" class="form-control" />
-							<select id="status" name="status" class="form-control">
-								<option th:each="status : ${statuses}" th:value="${status}" th:text="${status}"></option>
-							</select>
-							<input id="tags" maxlength="255" name="tags" data-role="tagsinput" class="form-control" />
-							<div>
-								<input type="checkbox" class="form-control" id="tech" name="tech" th:each="t : ${tech}" th:value="${t.id}" th:text="${t.name}" />
+							<div class="form-row">
+								<div class="col">
+									<input type="checkbox" id="available" name="available" />
+								<label class="form-check-label"> Public </label>
+								</div>
+
+								<div class="col">
+									<input id="image" placeholder="Image Url" name="image" class="form-control" />
+								</div>
+								<div class="col">
+									<input id="name" placeholder="Name" name="name" maxlength="255" class="form-control" />
+								</div>
+								<div class="col">
+									<select id="status" name="status" class="form-control">
+										<option th:each="status : ${statuses}" th:value="${status}" th:text="${status}"></option>
+									</select>
+								</div>
+								<div class="col">
+									<select id="type" name="type" class="form-control">
+										<option th:each="type : ${types}" th:value="${type.id}" th:text="${type.name}" />
+									</select>
+								</div>
+								<div class="col">
+									<input id="year" name="year" placeholder="Year" type="number" class="form-control" />
+								</div>
 							</div>
-							<select id="type" name="type" class="form-control">
-								<option th:each="type : ${types}" th:value="${type.id}" th:text="${type.name}" />
-							</select>
-							<input id="year" name="year" type="number" class="form-control" />
-							<div id="links"></div>
-							<button id="new_link_button" type="button" class="btn btn-secondary">New link</button>
-							<button type="submit" class="btn btn-secondary">Upsert</button>
+							<div class="form-row">
+								<div class="col">
+									<input id="tags" placeholder="Tags" maxlength="255" name="tags" data-role="tagsinput" class="form-control" />
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="col">
+									<textarea id="description" name="description" placeholder="Description" class="form-control"></textarea>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="col" th:each="t : ${tech}">
+									<input id="tech" name="tech" type="checkbox" th:value="${t.id}">
+									<label class="form-check-label" th:text="${t.name}"> Tech1 </label>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="col">
+									<div id="links"></div>
+									<button id="new_link_button" type="button" class="btn btn-secondary">New link</button>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="col">
+									<button type="submit" class="btn btn-secondary">Upsert</button>
+								</div>
+							</div>
 						</form>
-						<div id="new_link" class="link d-none">
-							<input id="display" maxlength="255" name="display" class="form-control" />
-							<input id="name" name="name" maxlength="255" class="form-control" />
-							<button id="remove" type="button" class="btn btn-secondary">Remove</button>
+						<div id="new_link" class="link form-row d-none">
+							<div class="col">
+								<input id="display" maxlength="255" placeholder="display" name="Display" class="form-control" />
+							</div>
+							<div class="col">
+								<input id="name" name="name" maxlength="255" placeholder="Url" class="form-control" />
+							</div>
+							<div class="col">
+								<button id="remove" type="button" class="btn btn-secondary">Remove</button>
+							</div>
 						</div>
 						<table id="projects">
 							<thead>
@@ -131,11 +172,19 @@
 					</div>
 					<div class="tab-pane fade" id="techs" role="tabpanel" aria-labelledby="techs-tab">
 						<br />
-						<form id="techForm" method="post" class="form-inline" action="#" th:action="@{/admin/tech}" th:object="${tech}">
+						<form id="techForm" method="post" action="#" th:action="@{/admin/tech}" th:object="${tech}">
 							<input type="hidden" id="id" name="id" th:value="${id}">
-							<input id="name" name="name" maxlength="255" class="form-control">
-							<input id="image" name="image" maxlength="255" class="form-control">
-							<button type="submit" class="btn btn-secondary">Upsert</button>
+							<div class="form-row">
+								<div class="col">
+									<input id="name" name="name" maxlength="255" class="form-control" placeholder="Name">
+								</div>
+								<div class="col">
+									<input id="image" name="image" maxlength="255" class="form-control" placeholder="Image Url">
+								</div>
+								<div class="col">
+									<button type="submit" class="btn btn-secondary">Upsert</button>
+								</div>
+							</div>
 						</form>
 						<table id="tech">
 							<thead>
@@ -160,18 +209,18 @@
 					</div>
 					<div class="tab-pane fade" id="types" role="tabpanel" aria-labelledby="types-tab">
 						<br />
-						<form id="typeForm" method="post" class="form-inline" action="#" th:action="@{/admin/type}" th:object="${type}">
+						<form id="typeForm" method="post" action="#" th:action="@{/admin/type}" th:object="${type}">
 							<input type="hidden" id="id" name="id">
-							<div class="form-group">
-								<label for="name" class="col-form-label">Name</label>
-								<input id="name" name="name" maxlength="255" class="form-control">
-							</div>
-							<div class="form-group">
-								<label for="description" class="col-form-label">Description</label>
-								<input id="description" name="description" maxlength="255" class="form-control">
-							</div>
-							<div class="form-group">
-								<button type="submit" class="btn btn-secondary">Upsert</button>
+							<div class="form-row">
+								<div class="col">
+									<input id="name" name="name" maxlength="255" class="form-control" placeholder="Name">
+								</div>
+								<div class="col">
+									<input id="description" name="description" maxlength="255" class="form-control" placeholder="Description">
+								</div>
+								<div class="col">
+									<button type="submit" class="btn btn-secondary">Upsert</button>
+								</div>
 							</div>
 						</form>
 						<table id="types">
