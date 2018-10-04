@@ -19,10 +19,16 @@ public class PortfolioController {
     private ProjectRepository projectRepository;
 
     @GetMapping("/index")
-    public String greeting(Model model) {
+    public String index(Model model) {
     	model.addAttribute("projects", projectRepository.findAll());
         return "index";
     }
+    
+    @GetMapping("/about")
+    public String about(Model model) {
+        return "about";
+    }
+    
     @GetMapping("/project/{id}")
     public ResponseEntity<Optional<Project>> project(@PathVariable Long id) {
         return new ResponseEntity<>(projectRepository.findById(id),HttpStatus.OK);

@@ -25,10 +25,10 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a class="nav-link" href="/index">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="/admin/index">Admin</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Github</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">About</a></li>
+					<li class="nav-item"><a class="nav-link" href="/index" th:href="@{/index}">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="/admin/index" th:href="@{/admin/index}">Admin</a></li>
+					<li class="nav-item"><a class="nav-link" href="https://github.com/jorgeamadosoria/portfolio">Github</a></li>
+					<li class="nav-item"><a class="nav-link" href="#"  th:href="@{/about}">About</a></li>
 					<form method="post" action="#" th:action="@{/logout}">
 						<button type="submit">Logout</button>
 					</form>
