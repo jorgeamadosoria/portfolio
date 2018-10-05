@@ -22,10 +22,18 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a class="nav-link" href="/index" th:href="@{/index}">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="https://github.com/jorgeamadosoria/portfolio">Github</a></li>
-					<li class="nav-item"><a class="nav-link" href="#" th:href="@{/about}">About</a></li>
-					<li class="nav-item"><a class="nav-link" href="/admin/index" th:href="@{/admin/index}">Admin</a></li>
+					<li class="nav-item">
+						<a class="nav-link" href="/index" th:href="@{/index}">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="https://github.com/jorgeamadosoria/portfolio">Github</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#" th:href="@{/about}">About</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/admin/index" th:href="@{/admin/index}">Admin</a>
+					</li>
 					<li class="nav-item" sec:authorize="isAuthenticated()">
 						<form method="post" action="#" th:action="@{/logout}">
 							<button type="submit" class="btn btn-link">Logout</button>
@@ -39,9 +47,15 @@
 		<div id="row">
 			<div id="col-lg-12">
 				<ul class="nav nav-tabs" id="adminTab" role="tablist">
-					<li class="nav-item"><a class="nav-link active" id="projects-tab" data-toggle="tab" href="#projects" role="tab" aria-controls="projects" aria-selected="true">Projects</a></li>
-					<li class="nav-item"><a class="nav-link" id="techs-tab" data-toggle="tab" href="#techs" role="tab" aria-controls="techs" aria-selected="false">Tech</a></li>
-					<li class="nav-item"><a class="nav-link" id="types-tab" data-toggle="tab" href="#types" role="tab" aria-controls="types" aria-selected="false">Types</a></li>
+					<li class="nav-item">
+						<a class="nav-link active" id="projects-tab" data-toggle="tab" href="#projects" role="tab" aria-controls="projects" aria-selected="true">Projects</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="techs-tab" data-toggle="tab" href="#techs" role="tab" aria-controls="techs" aria-selected="false">Tech</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="types-tab" data-toggle="tab" href="#types" role="tab" aria-controls="types" aria-selected="false">Types</a>
+					</li>
 				</ul>
 				<div class="tab-content" id="adminTabContent">
 					<div class="tab-pane fade show active" id="projects" role="tabpanel" aria-labelledby="projects-tab">
@@ -131,213 +145,222 @@
 						<div class="table-responsive-md">
 							<table id="projects" class="table table-light">
 								<thead>
-									<th>Available</th>
 									<th>Name</th>
 									<th>Description</th>
 									<th>Links</th>
-									<th>Logo</th>
-									<th>Status</th>
-									<th>Tags</th>
 									<th>Tech</th>
-									<th>Type</th>
-									<th>Year</th>
+									<th>Tags</th>
+									<th>Properties</th>
 									<th>Actions</th>
 								</thead>
 								<tbody>
 									<tr th:each="project : ${projects}">
-										<td th:text="*{project.available}">YES</td>
-										<td th:text="*{project.name}">Onions</td>
-										<td th:text="*{project.description}">2.41</td>
-										<td><span th:each="link : *{project.links}" th:text="|*{link.name} - ${link.display}|" /></td>
-										<td><img class="logo" src="http://placehold.it/500x300" th:src="*{project.image}" /></td>
-										<td th:text="*{project.status}">ACTIVE</td>
-										<td th:text="${#strings.replace(project.tags,',',' , ')}">tag1,tag2,tag3</td>
-										<td><span th:each="tech : *{project.tech}"> <img class="tech" th:src="*{tech.image}" /> <span th:text="*{tech.name}" /></span></td>
-										<td th:text="*{project.type.name}">WEB</td>
-										<td th:text="*{project.year}">2041</td>
-										<td><a name="edit" th:id="*{project.id}" href="#">Edit</a>&nbsp;
-										<a name="delete" th:id="*{project.id}" href="#">Remove</a></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-						<div class="tab-pane fade" id="techs" role="tabpanel" aria-labelledby="techs-tab">
-							<br />
-							<form id="techForm" method="post" action="#" th:action="@{/admin/tech}" th:object="${tech}">
-								<input type="hidden" id="id" name="id" th:value="${id}">
-								<div class="form-row">
-									<div class="col">
-										<input id="name" name="name" maxlength="255" class="form-control" placeholder="Name">
-									</div>
-									<div class="col">
-										<input id="image" name="image" maxlength="255" class="form-control" placeholder="Image Url">
-									</div>
-									<div class="col">
-										<button type="submit" class="btn btn-secondary">Upsert</button>
-									</div>
-								</div>
-							</form>
-							<table id="tech" class="table table-light">
-								<thead>
-									<th>Name</th>
-									<th>Image</th>
-									<th>Actions</th>
-								</thead>
-								<tbody>
-									<tr th:each="tech : ${tech}">
-										<td th:text="*{tech.name}">Onions</td>
-										<td><img class="tech" th:src="*{tech.image}" /></td>
-										<td><a name="edit" th:id="*{tech.id}" href="#">Edit</a>&nbsp;
-										<a name="delete" th:id="*{tech.id}" href="#">Remove</a></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-						<div class="tab-pane fade" id="types" role="tabpanel" aria-labelledby="types-tab">
-							<br />
-							<form id="typeForm" method="post" action="#" th:action="@{/admin/type}" th:object="${type}">
-								<input type="hidden" id="id" name="id">
-								<div class="form-row">
-									<div class="col">
-										<input id="name" name="name" maxlength="255" class="form-control" placeholder="Name">
-									</div>
-									<div class="col">
-										<input id="description" name="description" maxlength="255" class="form-control" placeholder="Description">
-									</div>
-									<div class="col">
-										<button type="submit" class="btn btn-secondary">Upsert</button>
-									</div>
-								</div>
-							</form>
-							<table id="types" class="table table-light">
-								<thead>
-									<th>Name</th>
-									<th>Description</th>
-									<th>Actions</th>
-								</thead>
-								<tbody>
-									<tr th:each="type : ${types}">
-										<td th:text="*{type.name}">Onions</td>
-										<td th:text="*{type.description}">2.41</td>
-										<td><a name="edit" th:id="*{type.id}" href="#">Edit</a>&nbsp;
-										<a name="delete" th:id="*{type.id}" href="#">Remove</a></td>
+										<td>
+											<ul class="unstyle">
+												<li th:text="*{project.name}">Onions</li>
+												<li>
+													<img class="logo" src="http://placehold.it/500x300" th:src="*{project.image}" />
+												</li>
+											</ul>
+										</td>
+										<td th:text="*{project.description}">Description, should be a large chunk of text since it does not have limits in the DB</td>
+										<td>
+										<ul class="unstyle">
+										<li th:each="link : *{project.links}"><a th:text="*{link.display}" th:href="*{link.name}" />
+										</ul>
+										</td>
+										<td>
+											<span th:each="tech : *{project.tech}">
+												<span th:text="*{tech.name}" /></span>
+										</td>
+										<td th:text="${#strings.replace(project.tags,',',', ')}">tag1,tag2,tag3</td>
+										<td>
+											<ul class="unstyle">
+												<li th:text="*{project.status}">ACTIVE</li>
+												<li th:text="*{project.available}?'PUBLIC':'PRIVATE'">YES</li>
+												<li th:text="*{project.type.name}">WEB</li>
+												<li th:text="*{project.year}">2041</li>
+											</ul>
+										</td>
+										<td>
+											<a class="fas fa-pen text-secondary" name="edit" th:id="*{project.id}" href="#"></a>
+											&nbsp;
+											<a class="fas fa-trash text-secondary" name="delete" th:id="*{project.id}" href="#"></a>
+										</td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
 					</div>
+					<div class="tab-pane fade" id="techs" role="tabpanel" aria-labelledby="techs-tab">
+						<br />
+						<form id="techForm" method="post" action="#" th:action="@{/admin/tech}" th:object="${tech}">
+							<input type="hidden" id="id" name="id" th:value="${id}">
+							<div class="form-row">
+								<div class="col">
+									<input id="name" name="name" maxlength="255" class="form-control" placeholder="Name">
+								</div>
+								<div class="col">
+									<input id="image" name="image" maxlength="255" class="form-control" placeholder="Image Url">
+								</div>
+								<div class="col">
+									<button type="submit" class="btn btn-secondary">Upsert</button>
+								</div>
+							</div>
+						</form>
+						<table id="tech" class="table table-light">
+							<thead>
+								<th>Name</th>
+								<th>Image</th>
+								<th>Actions</th>
+							</thead>
+							<tbody>
+								<tr th:each="tech : ${tech}">
+									<td th:text="*{tech.name}">Onions</td>
+									<td>
+										<img class="tech" th:src="*{tech.image}" />
+									</td>
+									<td>
+										<a name="edit" th:id="*{tech.id}" href="#" class="fas fa-pen text-secondary"></a>
+										&nbsp;
+										<a name="delete" th:id="*{tech.id}" href="#" class="fas fa-trash text-secondary"></a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="tab-pane fade" id="types" role="tabpanel" aria-labelledby="types-tab">
+						<br />
+						<form id="typeForm" method="post" action="#" th:action="@{/admin/type}" th:object="${type}">
+							<input type="hidden" id="id" name="id">
+							<div class="form-row">
+								<div class="col">
+									<input id="name" name="name" maxlength="255" class="form-control" placeholder="Name">
+								</div>
+								<div class="col">
+									<input id="description" name="description" maxlength="255" class="form-control" placeholder="Description">
+								</div>
+								<div class="col">
+									<button type="submit" class="btn btn-secondary">Upsert</button>
+								</div>
+							</div>
+						</form>
+						<table id="types" class="table table-light">
+							<thead>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Actions</th>
+							</thead>
+							<tbody>
+								<tr th:each="type : ${types}">
+									<td th:text="*{type.name}">Onions</td>
+									<td th:text="*{type.description}">2.41</td>
+									<td>
+										<a name="edit" th:id="*{type.id}" href="#" class="fas fa-pen text-secondary"></a>
+										&nbsp;
+										<a name="delete" th:id="*{type.id}" href="#" class="fas fa-trash text-secondary"></a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
-		<!-- #main -->
-		<script th:inline="javascript">
-			/*<![CDATA[*/
-			$("div#links").on("click", "button#remove", function(e) {
-				$(e.target).parents("div.link").remove();
-			})
+	</div>
+	<!-- #main -->
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		$("div#links").on("click", "button#remove", function(e) {
+			$(e.target).parents("div.link").remove();
+		})
 
-			function addLink(display, name, idx) {
-				var newLink = $("div#new_link").clone();
-				$(newLink).prop("id", "").toggleClass("d-none");
-				$(newLink).find("#display").prop("id",
-						"links[" + idx + "].display").prop("name",
-						"links[" + idx + "].display").val(display);
-				$(newLink).find("#name").prop("id", "links[" + idx + "].name")
-						.prop("name", "links[" + idx + "].name").val(name);
-				$("#projectForm #links").append(newLink);
-			};
+		function addLink(display, name, idx) {
+			var newLink = $("div#new_link").clone();
+			$(newLink).prop("id", "").toggleClass("d-none");
+			$(newLink).find("#display")
+					.prop("id", "links[" + idx + "].display").prop("name",
+							"links[" + idx + "].display").val(display);
+			$(newLink).find("#name").prop("id", "links[" + idx + "].name")
+					.prop("name", "links[" + idx + "].name").val(name);
+			$("#projectForm #links").append(newLink);
+		};
 
-			$("#types a[name=edit]").click(function(e) {
-				var url = /*[[@{/admin/type/}]]*/"";
-				$.get(url + $(e.target).attr("id"), function(data) {
-					$("#typeForm input#id").val(data.id);
-					$("#typeForm input#name").val(data.name);
-					$("#typeForm input#description").val(data.description);
-				});
+		$("#types a[name=edit]").click(function(e) {
+			var url = /*[[@{/admin/type/}]]*/"";
+			$.get(url + $(e.target).attr("id"), function(data) {
+				$("#typeForm input#id").val(data.id);
+				$("#typeForm input#name").val(data.name);
+				$("#typeForm input#description").val(data.description);
 			});
-			$("#types a[name=delete]").click(function(e) {
-				var url = /*[[@{/admin/type/delete/}]]*/"";
-				$.get(url + $(e.target).attr("id"), function(data) {
-					$(e.target).parents("tr").remove();
-				});
+		});
+		$("#types a[name=delete]").click(function(e) {
+			var url = /*[[@{/admin/type/delete/}]]*/"";
+			$.get(url + $(e.target).attr("id"), function(data) {
+				$(e.target).parents("tr").remove();
 			});
+		});
 
-			$("#tech a[name=edit]").click(function(e) {
-				var url = /*[[@{/admin/tech/}]]*/"";
-				$.get(url + $(e.target).attr("id"), function(data) {
-					$("#techForm input#id").val(data.id);
-					$("#techForm input#name").val(data.name);
-					$("#techForm input#image").val(data.image);
-				});
+		$("#tech a[name=edit]").click(function(e) {
+			var url = /*[[@{/admin/tech/}]]*/"";
+			$.get(url + $(e.target).attr("id"), function(data) {
+				$("#techForm input#id").val(data.id);
+				$("#techForm input#name").val(data.name);
+				$("#techForm input#image").val(data.image);
 			});
-			$("#tech a[name=delete]").click(function(e) {
-				var url = /*[[@{/admin/tech/delete/}]]*/"";
-				$.get(url + $(e.target).attr("id"), function(data) {
-					$(e.target).parents("tr").remove();
-				});
+		});
+		$("#tech a[name=delete]").click(function(e) {
+			var url = /*[[@{/admin/tech/delete/}]]*/"";
+			$.get(url + $(e.target).attr("id"), function(data) {
+				$(e.target).parents("tr").remove();
 			});
+		});
 
-			$("#new_link_button").click(function(e) {
-				var count = $("#projectForm #links > div").length;
-				addLink(null, null, count);
-			});
+		$("#new_link_button").click(function(e) {
+			var count = $("#projectForm #links > div").length;
+			addLink(null, null, count);
+		});
 
-			$("#projects a[name=edit]")
-					.click(
-							function(e) {
-								var url = /*[[@{/project/}]]*/"";
-								$
-										.get(
-												url + $(e.target).attr("id"),
-												function(data) {
-													$("#projectForm #id").val(
-															data.id);
-													$("#projectForm #available")
-															.prop(
-																	"checked",
-																	data.available);
-													$(
-															"#projectForm #description")
-															.val(
-																	data.tags);
-													$("#projectForm #name")
-															.val(data.name);
-													$("#projectForm #image")
-															.val(data.image);
-													$("#projectForm #status")
-															.val(data.status);
-													$("#projectForm #year")
-															.val(data.year);
-													$("#projectForm #tags")
-															.val(data.description);
-													$("#projectForm #type")
-															.val(data.type.id);
-													$("#projectForm #tech")
-															.val(data.tech);
-													for (var i = 0; i < data.tech.length; i++) {
-														$(
-																"input#tech[value='"
-																		+ data.tech[i].id
-																		+ "']")
-																.prop(
-																		"checked",
-																		true);
-													}
-													for (var i = 0; i < data.links.length; i++) {
-														addLink(
-																data.links[i].display,
-																data.links[i].name,
-																i);
-													}
-												});
-							});
-			$("#projects a[name=delete]").click(function(e) {
-				var url = /*[[@{/admin/project/delete/}]]*/"";
-				$.get(url + $(e.target).attr("id"), function(data) {
-					$(e.target).parents("tr").remove();
+		$("#projects a[name=edit]").click(
+				function(e) {
+					var url = /*[[@{/project/}]]*/"";
+					$.get(url + $(e.target).attr("id"), function(data) {
+						$("#projectForm #id").val(data.id);
+						$("#projectForm #available").prop("checked",
+								data.available);
+						$("#projectForm #description").val(data.description);
+						$("#projectForm #name").val(data.name);
+						$("#projectForm #image").val(data.image);
+						$("#projectForm #status").val(data.status);
+						$("#projectForm #year").val(data.year);
+						//$("#projectForm #tags").tagsinput('input').val();
+					//	$('#projectForm #tags').tagsinput('add', 'some tag');
+						var tags = data.tags.split(",");
+						for (var i = 0; i < tags.length; i++) {
+						//	$('#projectForm #tags').tagsinput();
+							$('#projectForm #tags').tagsinput('add', tags[i]);
+						}
+					//	$('#projectForm #tags').tagsinput('focus');
+						//$('#projectForm #tags').tagsinput('refresh');
+						$("#projectForm #type").val(data.type.id);
+						$("#projectForm #tech").val(data.tech);
+						for (var i = 0; i < data.tech.length; i++) {
+							$("input#tech[value='" + data.tech[i].id + "']")
+									.prop("checked", true);
+						}
+						for (var i = 0; i < data.links.length; i++) {
+							addLink(data.links[i].display, data.links[i].name,
+									i);
+						}
+					});
 				});
+		$("#projects a[name=delete]").click(function(e) {
+			var url = /*[[@{/admin/project/delete/}]]*/"";
+			$.get(url + $(e.target).attr("id"), function(data) {
+				$(e.target).parents("tr").remove();
 			});
-			/*]]>*/
-		</script>
+		});
+		/*]]>*/
+	</script>
 </body>
 </html>
