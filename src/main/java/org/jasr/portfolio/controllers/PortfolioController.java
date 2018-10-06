@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.jasr.portfolio.entities.Project;
 import org.jasr.portfolio.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,9 @@ public class PortfolioController {
 	@Autowired
     private ProjectRepository projectRepository;
 
+	@Value("${angcv.export.url}")
+	private String jsonUrl;
+	
     @GetMapping("/index")
     public String index(Model model) {
     	model.addAttribute("projects", projectRepository.findAll());
@@ -25,6 +29,7 @@ public class PortfolioController {
     
     @GetMapping("/about")
     public String about(Model model) {
+    	model.addAttribute("jsonUrl", jsonUrl);
         return "about";
     }
     

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<title>Getting Started: Serving Web Content</title>
+<head th:replace="fragments::head('My Portfolio - Login')">
+<title>My Portfolio - Login</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -14,65 +14,33 @@
 </head>
 <body>
 	<!-- Navigation -->
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-		<div class="container">
-			<a class="navbar-brand" href="#">My Portfolio</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarResponsive">
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item">
-						<a class="nav-link" href="/index" th:href="@{/index}">Home</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="https://github.com/jorgeamadosoria/portfolio">Github</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#" th:href="@{/about}">About</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</nav>
+	<nav th:replace="fragments :: header"></nav>
 	<div class="container">
-		<div class="row">
-			<div class="col-md-6 col-lg-6 col-sm-12 ">
+		<div class="row justify-content-md-center">
+			<div class="col-md-10 col-lg-6 col-sm-12">
 				<div class="card">
 					<div class="card-body">
 						<form name="f" th:action="@{/login}" method="post">
 							<h5 class="card-title">Local login</h5>
 							<div th:if="${param.error}" class="alert alert-error">Invalid username and password.</div>
 							<div th:if="${param.logout}" class="alert alert-success">You have been logged out.</div>
-							<div class="col-md-11 col-lg-11 form-group row">
+							<div class="form-group row">
 								<label for="username" class="col-form-label">Username</label>
 								<input type="text" id="username" name="username" class="form-control" />
 							</div>
-							<div class="col-md-11 col-lg-11 form-group row">
+							<div class="form-group row">
 								<label for="password" class="col-form-label">Password</label>
 								<input type="password" id="password" name="password" class="form-control" />
 							</div>
-							<div class="col-md-11 col-lg-11 form-group row justify-content-end">
+							<div class="form-group row justify-content-end">
 								<button type="submit" class="btn btn-secondary">Log in</button>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6 col-lg-6 col-sm-12">
-				<div class="card">
-					<div class="card-body">
-						<h5 class="card-title">Use a login provider</h5>
-					</div>
-				</div>
-			</div>
 		</div>
 	</div>
-	<footer class="footer py-3 bg-dark">
-		<div class="container">
-			<p class="m-0 text-center text-white">My portfolio</p>
-		</div>
-		<!-- /.container -->
-	</footer>
+	<footer th:replace="fragments :: footer"> </footer>
 </body>
 </html>
