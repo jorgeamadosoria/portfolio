@@ -21,13 +21,21 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a class="nav-link" href="/index" th:href="@{/index}">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="https://github.com/jorgeamadosoria/portfolio">Github</a></li>
-					<li class="nav-item"><a class="nav-link" href="#" th:href="@{/about}">About</a></li>
-					<li class="nav-item"><a class="nav-link" href="/admin/index" th:href="@{/admin/index}">Admin</a></li>
-					<li class="nav-item" sec:authorize="isAuthenticated()">
+					<li class="nav-item"><a class="nav-link" href="/index" th:href="@{/index}" title="home"><i class="fas fa-home text-muted"></i></a></li>
+					<li class="nav-item"><a class="nav-link" href="#" th:href="@{/about}" title="about"><i class="fas fa-info-circle text-muted"></i></a></li>
+					<li class="nav-item" sec:authorize="isAuthenticated()" title="admin dashboard"><a class="nav-link" href="/admin/index" th:href="@{/admin/index}"><i class="fas fa-wrench text-muted"></i></a></li>
+					<li class="nav-item" sec:authorize="isAuthenticated()" title="logout">
 						<form method="post" action="#" th:action="@{/logout}">
-							<button type="submit" class="btn btn-link">Logout</button>
+							<button type="submit" class="btn btn-link">
+								<i class="fas fa-sign-out-alt text-muted"></i>
+							</button>
+						</form>
+					</li>
+					<li class="nav-item" sec:authorize="!isAuthenticated()" title="login">
+						<form method="post" action="#" th:action="@{/login}">
+							<button type="submit" class="btn btn-link">
+								<i class="fas fa-sign-in-alt text-muted"></i>
+							</button>
 						</form>
 					</li>
 				</ul>
@@ -58,7 +66,14 @@
 	<!-- Footer -->
 	<footer class="footer py-3 bg-dark">
 		<div class="container">
-			<p class="m-0 text-center text-white">My portfolio</p>
+			<p class="m-0 text-center text-white">My portfolio - 2018</p>
+			<ul class="nav navbar-nav d-inline-flex">
+				<li class="nav-item">
+					<ul class="list-inline-mb-0">
+						<li class="list-inline-item"><a class="nav-link" href="https://github.com/jorgeamadosoria/portfolio" title="github"><i class="fab fa-github text-muted"></i></a></li>
+						<li class="list-inline-item"><a class="nav-link" href="https://github.com/jorgeamadosoria/portfolio" title="linkedIn"><i class="fab fa-linkedin text-muted"></i></a></li>
+						<li class="list-inline-item"><a class="nav-link" href="https://github.com/jorgeamadosoria/portfolio" title="Resume"><i class="fas fa-file-alt text-muted"></i></a></li>
+					</ul>
 		</div>
 		<!-- /.container -->
 	</footer>
@@ -123,93 +138,57 @@
 	</div>
 </body>
 <script>
-	$("#projects")
-			.on(
-					"click",
-					"a.project_link",
-					function(e) {
-						var url = /*[[@{/project/}]]*/"/project/";
-						$
-								.get(
-										url
-												+ $(e.target).parents(
-														"div.project").attr(
-														"id"),
-										function(data) {
-											$(
-													"#projectModal #tech .tech_item:not(.d-none)")
-													.remove();
-											$(
-													"#projectModal #tags .tag_item:not(.d-none)")
-													.remove();
-											$(
-													"#projectModal #link .link_item:not(.d-none)")
-													.remove();
+	$("#projects").on(
+			"click",
+			"a.project_link",
+			function(e) {
+				var url = /*[[@{/project/}]]*/"/project/";
+				$.get(url + $(e.target).parents("div.project").attr("id"),
+						function(data) {
+							$("#projectModal #tech .tech_item:not(.d-none)")
+									.remove();
+							$("#projectModal #tags .tag_item:not(.d-none)")
+									.remove();
+							$("#projectModal #link .link_item:not(.d-none)")
+									.remove();
 
-											$("#projectModal #available").text(
-													data.available ? "Yes"
-															: "No");
-											$("#projectModal #description")
-													.text(data.description);
-											$("#projectModal #name").text(
-													data.name);
-											$("#projectModal #image").prop(
-													"src", data.image);
-											$("#projectModal #status").text(
-													data.status);
-											$("#projectModal #year").text(
-													data.year);
-											$("#projectModal #type").text(
-													data.type.name);
-											for (var i = 0; i < data.tech.length; i++) {
-												$("#projectModal #tech")
-														.append(
-																$(
-																		".tech_item.d-none")
-																		.clone()
-																		.toggleClass(
-																				"d-none")
-																		.find(
-																				"img.tech")
-																		.prop(
-																				"src",
-																				data.tech[i].image)
-																		.prop(
-																				"title",
-																				data.tech[i].name)
-																		.end());
-											}
-											var tags = data.tags.split(",");
-											for (var i = 0; i < tags.length; i++) {
-												$("#projectModal #tags")
-														.append(
-																$(
-																		".tag_item.d-none.badge")
-																		.clone()
-																		.toggleClass(
-																				"d-none")
-																		.text(
-																				tags[i]));
-											}
-											for (var i = 0; i < data.links.length; i++) {
-												$("#projectModal #links")
-														.append(
-																$(
-																		".link_item.d-none")
-																		.clone()
-																		.toggleClass(
-																				"d-none")
-																		.find(
-																				"a")
-																		.prop(
-																				"href",
-																				data.links[i].name)
-																		.text(
-																				data.links[i].display)
-																		.end());
-											}
-										});
-					});
+							$("#projectModal #available").text(
+									data.available ? "Yes" : "No");
+							$("#projectModal #description").text(
+									data.description);
+							$("#projectModal #name").text(data.name);
+							$("#projectModal #image").prop("src", data.image);
+							$("#projectModal #status").text(data.status);
+							$("#projectModal #year").text(data.year);
+							$("#projectModal #type").text(data.type.name);
+							for (var i = 0; i < data.tech.length; i++) {
+								$("#projectModal #tech").append(
+										$(".tech_item.d-none").clone()
+												.toggleClass("d-none").find(
+														"img.tech").prop("src",
+														data.tech[i].image)
+												.prop("title",
+														data.tech[i].name)
+												.end());
+							}
+							var tags = data.tags.split(",");
+							for (var i = 0; i < tags.length; i++) {
+								$("#projectModal #tags").append(
+										$(".tag_item.d-none.badge").clone()
+												.toggleClass("d-none").text(
+														tags[i]));
+							}
+							for (var i = 0; i < data.links.length; i++) {
+								$("#projectModal #links").append(
+										$(".link_item.d-none").clone()
+												.toggleClass("d-none")
+												.find("a").prop("href",
+														data.links[i].name)
+												.text(data.links[i].display)
+												.end());
+							}
+						});
+			});
 </script>
 </html>
 </body>
