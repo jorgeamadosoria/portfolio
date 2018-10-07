@@ -18,17 +18,54 @@
 	<nav th:replace="fragments :: header"></nav>
 	<!-- Page Content -->
 	<div class="container">
-		<div class="debug"></div>
-		<div class="row"></div>
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<ul class="nav nav-tabs" id="aboutTab" role="tablist">
+					<li class="nav-item"><a class="nav-link" id="app-tab" data-toggle="tab" href="#app" role="tab" aria-controls="app" aria-selected="false">App</a></li>
+					<li class="nav-item"><a class="nav-link" id="author-tab" data-toggle="tab" href="#author" role="tab" aria-controls="author" aria-selected="false">Author</a></li>
+				</ul>
+				<div class="tab-content" id="adminTabContent">
+					<div class="tab-pane fade" id="app" role="tabpanel" aria-labelledby="techs-tab">
+						<br />
+					</div>
+					<div class="tab-pane fade" id="author" role="tabpanel" aria-labelledby="types-tab">
+						<br />
+						<div class="card">
+						<div class="card-title">Personal</div>
+							<div class="card-body" id="personal"></div>
+						</div>
+						<div class="card">
+						<div class="card-title">Languages</div>
+							<div class="card-body" id="languages"></div>
+						</div>
+						<div class="card">
+							<div class="card-body" id="tech"></div>
+						</div>
+						<div class="card">
+							<div class="card-body" id="education"></div>
+						</div>
+						<div class="card">
+							<div class="card-body" id="work"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	<footer th:replace="fragments :: footer"> </footer>
 </body>
 <script>
 	/*<![CDATA[*/
-	var url = /*[[${jsonUrl}]]*/; //"";//"https://blooming-chamber-41361.herokuapp.com/api/export/5a8cc9b506805e1a4c65c102";
-	$.get(url, function(json) {
-		// do stuff with json (in this case an array)
-		$(".debug").text(json);
+	var url = /*[[${jsonUrl}]]*/ "https://blooming-chamber-41361.herokuapp.com/api/export/5a8cc9b506805e1a4c65c102";
+	$.get(url, function(jsonString) {
+		var json = JSON.parse(jsonString);
+		$("#personal").text(JSON.stringify(json.personal));
+		$("#languages").text(JSON.stringify(json.languages));
+		$("#education").text(JSON.stringify(json.education));
+		$("#work").text(JSON.stringify(json.work));
+	//	alert();
+		
 	});
 	/*]]>*/
 </script>
