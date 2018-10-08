@@ -18,7 +18,6 @@
 	<nav th:replace="fragments :: header"></nav>
 	<!-- Page Content -->
 	<div class="container">
-		
 		<div class="row">
 			<div class="col-lg-12">
 				<ul class="nav nav-tabs" id="aboutTab" role="tablist">
@@ -32,18 +31,56 @@
 					<div class="tab-pane fade" id="author" role="tabpanel" aria-labelledby="types-tab">
 						<br />
 						<div class="card">
-						<div class="card-title">Personal</div>
-							<div class="card-body" id="personal"></div>
+							<div class="card-title">Personal</div>
+							<div class="card-body" id="personal">
+								<p id="summary"></p>
+								<p id="email"></p>
+								<p id="label"></p>
+								<p id="picture"></p>
+								<p id="fullname"></p>
+							</div>
 						</div>
 						<div class="card">
-						<div class="card-title">Languages</div>
-							<div class="card-body" id="languages"></div>
+							<div class="card-title">Languages</div>
+							<div class="card-body">
+								<div class="row" id="languages">
+									<div id="languageTemplate" class="card-about d-none col-md-2">
+										<div class="card">
+											<div class="card-body">
+												<p id="name"></p>
+												<p id="level"></p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 						<div class="card">
-							<div class="card-body" id="tech"></div>
+							<div class="card-body">
+								<div class="row" id="tech">
+									<div id="techTemplate" class="card-about d-none col-md-2">
+										<div class="card">
+											<div class="card-body">
+												<p id="name"></p>
+												<p id="level"></p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 						<div class="card">
-							<div class="card-body" id="education"></div>
+							<div class="card-body">
+							<div class="row" id="education">
+							<div id="educationTemplate" class="card-about d-none col-md-2">
+										<div class="card">
+											<div class="card-body">
+												<p id="name"></p>
+												<p id="level"></p>
+											</div>
+										</div>
+									</div>
+							</div>
 						</div>
 						<div class="card">
 							<div class="card-body" id="work"></div>
@@ -57,15 +94,25 @@
 </body>
 <script>
 	/*<![CDATA[*/
-	var url = /*[[${jsonUrl}]]*/ "https://blooming-chamber-41361.herokuapp.com/api/export/5a8cc9b506805e1a4c65c102";
+	var url = /*[[${jsonUrl}]]*/"https://blooming-chamber-41361.herokuapp.com/api/export/5a8cc9b506805e1a4c65c102";
 	$.get(url, function(jsonString) {
 		var json = JSON.parse(jsonString);
 		$("#personal").text(JSON.stringify(json.personal));
 		$("#languages").text(JSON.stringify(json.languages));
+		//--
+		for (i = 0; i < json.skills.length; i++)
+			$("#tech").append(
+					$("#tech #techTemplate").clone().prop("id", "")
+							.toggleClass("d-none").find("#name").text(
+									json.skills[i].name).end().find(
+									".card-body #level").text(
+									json.skills[i].level).end());
+		//	$("#tech").text(JSON.stringify(json.skills[i]));
+		//--
 		$("#education").text(JSON.stringify(json.education));
 		$("#work").text(JSON.stringify(json.work));
-	//	alert();
-		
+		//	alert();
+
 	});
 	/*]]>*/
 </script>

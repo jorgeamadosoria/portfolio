@@ -44,7 +44,7 @@ footer {
 	min-height: 100%;
 }
 
-.form-row, .card-form {
+.form-row, .card-form, .card-about {
 	margin-top: 2px;
 	margin-bottom: 2px;
 }
