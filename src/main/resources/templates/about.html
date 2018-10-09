@@ -21,16 +21,87 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<ul class="nav nav-tabs" id="aboutTab" role="tablist">
+					<li class="nav-item"><a class="nav-link active" id="author-tab" data-toggle="tab" href="#author" role="tab" aria-controls="author" aria-selected="false">Author</a></li>
 					<li class="nav-item"><a class="nav-link" id="app-tab" data-toggle="tab" href="#app" role="tab" aria-controls="app" aria-selected="false">App</a></li>
-					<li class="nav-item"><a class="nav-link" id="author-tab" data-toggle="tab" href="#author" role="tab" aria-controls="author" aria-selected="false">Author</a></li>
 				</ul>
 				<div class="tab-content" id="adminTabContent">
-					<div class="tab-pane fade" id="app" role="tabpanel" aria-labelledby="techs-tab">
+					<div class="tab-pane fade" id="app" role="tabpanel" aria-labelledby="app-tab">
 						<br />
+						<p>This app is meant as a tracking site and showcase of personal projects.</p>
+						<p>Projects displayed range from POCs meant to explore a particular technology set, to passion projects or actual professional work. I have been an integral part of all of these projects, gaining insight and experience by developing, designing or otherwise working on each one of them, even though I'm not always the only or even main author.</p>
+						<p>Projects are most commonly code artifacts, but not necessarily so. They may or may not be available depending on the proprietary or free nature of the information and deliverables.</p>
+						<p>Projects can be:</p>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="card text-white bg-success h-100">
+									<div class="card-header">ACTIVE</div>
+									<div class="card-body">
+										<p class="card-text">The project is currently being developed or actively maintained</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="card text-white bg-secondary h-100">
+									<div class="card-header">DORMANT</div>
+									<div class="card-body">
+										<p class="card-text">The project is not finished yet, but there is no real activity going on. It may or may not be picked up in the future</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="card bg-light h-100">
+									<div class="card-header">PROSPECTIVE</div>
+									<div class="card-body">
+										<p class="card-text">The project exists only as an idea or high level design. Sometime in the future it may go into ACTIVE status, or disappear if the idea does not find a proper way to realization</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="card text-white bg-primary h-100">
+									<div class="card-header">FINISHED</div>
+									<div class="card-body">
+										<p class="card-text">The project has finished active development and is either abandoned or in maintenance-only mode</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<p>This project is itself an open source POC for the interaction of the following technologies:</p>
+						<ul class="unstyle list-inline">
+							<li class="list-inline-item"><div class="card">
+									<div class="card-body">
+										<img class="tech-about" src="https://image.ibb.co/cJaJYp/spring_boot_project_logo.png" title="Spring Boot">
+									</div>
+								</div></li>
+							<li class="list-inline-item"><div class="card">
+									<div class="card-body">
+										<img class="tech-about" src="https://image.ibb.co/b530eU/image.png" title="Spring Security">
+									</div></li>
+							<li class="list-inline-item"><div class="card">
+									<div class="card-body">
+										<img class="tech-about" src="https://image.ibb.co/cA7AeU/image.png" title="Thymeleaf">
+									</div></li>
+							<li class="list-inline-item"><div class="card">
+									<div class="card-body">
+										<img class="tech-about" src="https://image.ibb.co/crCRKU/image.png" title="jQuery">
+									</div></li>
+							<li class="list-inline-item"><div class="card">
+									<div class="card-body">
+										<img class="tech-about" src="https://image.ibb.co/fCXbKU/image.png" title="Hibernate">
+									</div></li>
+							<li class="list-inline-item"><div class="card">
+									<div class="card-body">
+										<img class="tech-about" src="https://image.ibb.co/jpSOYp/image.png" title="PostgreSQL">
+									</div></li>
+							<li class="list-inline-item"><div class="card h-100">
+									<div class="card-body ">
+										<img class="tech-about" src="https://image.ibb.co/fSRYYp/image.png" title="Liquibase">
+									</div>
+								</div></li>
+						</ul>
 					</div>
-					<div class="tab-pane fade" id="author" role="tabpanel" aria-labelledby="types-tab">
+					<div class="tab-pane fade in active show" id="author" role="tabpanel" aria-labelledby="author-tab">
 						<br />
-						<div class="card">
+						<div>
 							<div class="card-title">Personal</div>
 							<div class="card-body" id="personal">
 								<p id="summary"></p>
@@ -40,14 +111,14 @@
 								<p id="fullname"></p>
 							</div>
 						</div>
-						<div class="card">
+						<div>
 							<div class="card-title">Languages</div>
 							<div class="card-body">
 								<div class="row" id="languages">
-									<div id="languageTemplate" class="card-about d-none col-md-2">
+									<div id="languageTemplate" class="mb-3 d-none col-md-4">
 										<div class="card">
 											<div class="card-body">
-												<p id="name"></p>
+												<p id="language"></p>
 												<p id="level"></p>
 											</div>
 										</div>
@@ -55,11 +126,12 @@
 								</div>
 							</div>
 						</div>
-						<div class="card">
+						<div>
+							<div class="card-title">Technologies</div>
 							<div class="card-body">
 								<div class="row" id="tech">
-									<div id="techTemplate" class="card-about d-none col-md-2">
-										<div class="card">
+									<div id="techTemplate" class="mb-3 d-none col-md-2">
+										<div class="card h-100">
 											<div class="card-body">
 												<p id="name"></p>
 												<p id="level"></p>
@@ -69,20 +141,43 @@
 								</div>
 							</div>
 						</div>
-						<div class="card">
+						<div>
+							<div class="card-title">Education</div>
 							<div class="card-body">
-							<div class="row" id="education">
-							<div id="educationTemplate" class="card-about d-none col-md-2">
+								<div class="row" id="education">
+									<div id="educationTemplate" class="mb-3 d-none col-md-6">
 										<div class="card">
 											<div class="card-body">
-												<p id=""></p>
+												<p id="institution"></p>
+												<p id="career"></p>
+												<p id="logo"></p>
+												<p id="website"></p>
+												<p id="endDate"></p>
 											</div>
 										</div>
 									</div>
+								</div>
 							</div>
 						</div>
-						<div class="card">
-							<div class="card-body" id="work"></div>
+						<div>
+							<div class="card-title">Work history</div>
+							<div class="card-body">
+								<div class="row" id="work">
+									<div id="workTemplate" class="mb-3 d-none col-md-6">
+										<div class="card h-100">
+											<div class="card-body">
+												<p id="company"></p>
+												<p id="position"></p>
+												<p id="logo"></p>
+												<p id="website"></p>
+												<p>
+													<span id="startDate"></span>&nbsp;-&nbsp;<span id="endDate"></span>
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -96,20 +191,52 @@
 	var url = /*[[${jsonUrl}]]*/"https://blooming-chamber-41361.herokuapp.com/api/export/5a8cc9b506805e1a4c65c102";
 	$.get(url, function(jsonString) {
 		var json = JSON.parse(jsonString);
-		$("#personal").text(JSON.stringify(json.personal));
-		$("#languages").text(JSON.stringify(json.languages));
+		$("#personal #summary").text(json.personal.summary);
+		$("#personal #email").text(json.personal.email);
+		$("#personal #label").text(json.personal.label);
+		$("#personal #picture").text(json.personal.picture);
+		$("#personal #fullname").text(json.personal.fullname);
+		for (i = 0; i < json.languages.length; i++)
+			$("#languages").append(
+					$("#languages #languageTemplate").clone().prop("id", "")
+							.toggleClass("d-none").find("#language").text(
+									json.languages[i].language).end().find(
+									"#level").text(json.languages[i].level)
+							.end());
 		//--
 		for (i = 0; i < json.skills.length; i++)
 			$("#tech").append(
 					$("#tech #techTemplate").clone().prop("id", "")
 							.toggleClass("d-none").find("#name").text(
-									json.skills[i].name).end().find(
-									".card-body #level").text(
-									json.skills[i].level).end());
-		//	$("#tech").text(JSON.stringify(json.skills[i]));
+									json.skills[i].name).end().find("#level")
+							.text(json.skills[i].level).end());
 		//--
-		$("#education").text(JSON.stringify(json.education));
-		$("#work").text(JSON.stringify(json.work));
+		for (i = 0; i < json.education.length; i++)
+			$("#education").append(
+					$("#education #educationTemplate").clone().prop("id", "")
+							.toggleClass("d-none").find("#institution").text(
+									json.education[i].institution).end().find(
+									"#career").text(json.education[i].career)
+							.end().find("#logo").text(json.education[i].logo)
+							.end().find("#endDate").text(
+									new Date(json.education[i].endDate)
+											.getFullYear()).end().find(
+									"#website").text(json.education[i].website)
+							.end());
+		for (i = 0; i < json.work.length; i++)
+			$("#work").append(
+					$("#work #workTemplate").clone().prop("id", "")
+							.toggleClass("d-none").find("#startDate").text(
+									new Date(json.work[i].startDate)
+											.getFullYear()).end().find(
+									"#endDate").text(
+									new Date(json.work[i].endDate)
+											.getFullYear()).end().find(
+									"#company").text(json.work[i].company)
+							.end().find("#position")
+							.text(json.work[i].position).end().find("#logo")
+							.text(json.work[i].logo).end().find("#website")
+							.text(json.work[i].website).end());
 		//	alert();
 
 	});
