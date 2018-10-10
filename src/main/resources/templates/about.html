@@ -33,23 +33,23 @@
 						<p>Projects can be:</p>
 						<div class="row">
 							<div class="col-md-3">
-								<div class="card text-white bg-success h-100">
-									<div class="card-header">ACTIVE</div>
+								<div class="card border-success h-100">
+									<div class="card-header bg-success text-white">ACTIVE</div>
 									<div class="card-body">
 										<p class="card-text">The project is currently being developed or actively maintained</p>
 									</div>
 								</div>
 							</div>
 							<div class="col-md-3">
-								<div class="card text-white bg-secondary h-100">
-									<div class="card-header">DORMANT</div>
+								<div class="card border-secondary h-100">
+									<div class="card-header bg-secondary text-white">DORMANT</div>
 									<div class="card-body">
 										<p class="card-text">The project is not finished yet, but there is no real activity going on. It may or may not be picked up in the future</p>
 									</div>
 								</div>
 							</div>
 							<div class="col-md-3">
-								<div class="card bg-light h-100">
+								<div class="card border-light h-100">
 									<div class="card-header">PROSPECTIVE</div>
 									<div class="card-body">
 										<p class="card-text">The project exists only as an idea or high level design. Sometime in the future it may go into ACTIVE status, or disappear if the idea does not find a proper way to realization</p>
@@ -57,8 +57,8 @@
 								</div>
 							</div>
 							<div class="col-md-3">
-								<div class="card text-white bg-primary h-100">
-									<div class="card-header">FINISHED</div>
+								<div class="card border-primary h-100">
+									<div class="card-header bg-primary text-white">FINISHED</div>
 									<div class="card-body">
 										<p class="card-text">The project has finished active development and is either abandoned or in maintenance-only mode</p>
 									</div>
@@ -101,82 +101,53 @@
 					</div>
 					<div class="tab-pane fade in active show" id="author" role="tabpanel" aria-labelledby="author-tab">
 						<br />
-						<div>
-							<div class="card-title">Personal</div>
-							<div class="card-body" id="personal">
-								<p id="summary"></p>
-								<p id="email"></p>
-								<p id="label"></p>
-								<p id="picture"></p>
-								<p id="fullname"></p>
+						<div id="personal" class="row no-gutters  mt-1 ml-1">
+							<div class="col-auto">
+								<img id="picture" src="//placehold.it/200" class="img-fluid rounded-circle" alt="">
 							</div>
-						</div>
-						<div>
-							<div class="card-title">Languages</div>
-							<div class="card-body">
-								<div class="row" id="languages">
-									<div id="languageTemplate" class="mb-3 d-none col-md-4">
-										<div class="card">
-											<div class="card-body">
-												<p id="language"></p>
-												<p id="level"></p>
-											</div>
-										</div>
-									</div>
+							<div class="col">
+								<div class="card-block px-2">
+									<h6 class="card-title" id="fullname">Title</h6>
+									<small class="card-text" id="label"></small>
+									<p class="card-text" id="summary">Description</p>
+									<p>
+										<i class="far fa-envelope"></i>&nbsp;&nbsp;<i class="card-text" id="email"></i>
+									</p>
 								</div>
 							</div>
 						</div>
-						<div>
-							<div class="card-title">Technologies</div>
-							<div class="card-body">
-								<div class="row" id="tech">
-									<div id="techTemplate" class="mb-3 d-none col-md-2">
-										<div class="card h-100">
-											<div class="card-body">
-												<p id="name"></p>
-												<p id="level"></p>
-											</div>
-										</div>
-									</div>
-								</div>
+						<hr />
+						<div class="row" id="languages">
+							<div id="languageTemplate" class="d-none col">
+								<i class="fas fa-language"></i>&nbsp;&nbsp;<span id="language"></span>&nbsp;(<span id="level"></span>)
 							</div>
 						</div>
-						<div>
-							<div class="card-title">Education</div>
-							<div class="card-body">
-								<div class="row" id="education">
-									<div id="educationTemplate" class="mb-3 d-none col-md-6">
-										<div class="card">
-											<div class="card-body">
-												<p id="institution"></p>
-												<p id="career"></p>
-												<p id="logo"></p>
-												<p id="website"></p>
-												<p id="endDate"></p>
-											</div>
-										</div>
-									</div>
-								</div>
+						<hr />
+						<div class="row" id="tech">
+							<div id="techTemplate" class="d-none col">
+								<i class="fas fa-code"></i>&nbsp;&nbsp;<span id="name"></span>&nbsp;(<small id="level"></small>)
 							</div>
 						</div>
-						<div>
-							<div class="card-title">Work history</div>
-							<div class="card-body">
-								<div class="row" id="work">
-									<div id="workTemplate" class="mb-3 d-none col-md-6">
-										<div class="card h-100">
-											<div class="card-body">
-												<p id="company"></p>
-												<p id="position"></p>
-												<p id="logo"></p>
-												<p id="website"></p>
-												<p>
-													<span id="startDate"></span>&nbsp;-&nbsp;<span id="endDate"></span>
-												</p>
-											</div>
-										</div>
-									</div>
-								</div>
+						<hr />
+						<div class="row" id="education">
+							<div id="educationTemplate" class="d-none col-md-6">
+								<p id="institution"></p>
+								<p id="career"></p>
+								<p id="logo"></p>
+								<p id="website"></p>
+								<p id="endDate"></p>
+							</div>
+						</div>
+						<hr />
+						<div class="row" id="work">
+							<div id="workTemplate" class="d-none col-md-6">
+								<p id="company"></p>
+								<p id="position"></p>
+								<p id="logo"></p>
+								<p id="website"></p>
+								<p>
+									<span id="startDate"></span>&nbsp;-&nbsp;<span id="endDate"></span>
+								</p>
 							</div>
 						</div>
 					</div>
@@ -194,7 +165,7 @@
 		$("#personal #summary").text(json.personal.summary);
 		$("#personal #email").text(json.personal.email);
 		$("#personal #label").text(json.personal.label);
-		$("#personal #picture").text(json.personal.picture);
+		$("#personal #picture").prop("src", json.personal.picture);
 		$("#personal #fullname").text(json.personal.fullname);
 		for (i = 0; i < json.languages.length; i++)
 			$("#languages").append(
