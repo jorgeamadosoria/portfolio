@@ -33,7 +33,7 @@
 						<p>Projects can be:</p>
 						<div class="row">
 							<div class="col-md-3">
-								<div class="card border-success h-100">
+								<div class="card border border-success h-100">
 									<div class="card-header bg-success text-white">ACTIVE</div>
 									<div class="card-body">
 										<p class="card-text">The project is currently being developed or actively maintained</p>
@@ -41,7 +41,7 @@
 								</div>
 							</div>
 							<div class="col-md-3">
-								<div class="card border-secondary h-100">
+								<div class="card border border-secondary h-100">
 									<div class="card-header bg-secondary text-white">DORMANT</div>
 									<div class="card-body">
 										<p class="card-text">The project is not finished yet, but there is no real activity going on. It may or may not be picked up in the future</p>
@@ -49,7 +49,7 @@
 								</div>
 							</div>
 							<div class="col-md-3">
-								<div class="card border-light h-100">
+								<div class="card border border-light h-100">
 									<div class="card-header">PROSPECTIVE</div>
 									<div class="card-body">
 										<p class="card-text">The project exists only as an idea or high level design. Sometime in the future it may go into ACTIVE status, or disappear if the idea does not find a proper way to realization</p>
@@ -57,7 +57,7 @@
 								</div>
 							</div>
 							<div class="col-md-3">
-								<div class="card border-primary h-100">
+								<div class="card border border-primary h-100">
 									<div class="card-header bg-primary text-white">FINISHED</div>
 									<div class="card-body">
 										<p class="card-text">The project has finished active development and is either abandoned or in maintenance-only mode</p>
@@ -101,11 +101,11 @@
 					</div>
 					<div class="tab-pane fade in active show" id="author" role="tabpanel" aria-labelledby="author-tab">
 						<br />
-						<div id="personal" class="row no-gutters  mt-1 ml-1">
-							<div class="col-auto">
+						<div id="personal" class="row border border-dark rounded bg-light mb-2">
+							<div class="col-auto mt-2">
 								<img id="picture" src="//placehold.it/200" class="img-fluid rounded-circle" alt="">
 							</div>
-							<div class="col">
+							<div class="col mt-3">
 								<div class="card-block px-2">
 									<h6 class="card-title" id="fullname">Title</h6>
 									<small class="card-text" id="label"></small>
@@ -116,38 +116,46 @@
 								</div>
 							</div>
 						</div>
-						<hr />
-						<div class="row" id="languages">
-							<div id="languageTemplate" class="d-none col">
+						<div class="row border border-dark rounded bg-light text-center mb-2" id="languages">
+							<div id="languageTemplate" class="d-none col mt-3 mb-2">
 								<i class="fas fa-language"></i>&nbsp;&nbsp;<span id="language"></span>&nbsp;(<span id="level"></span>)
 							</div>
 						</div>
-						<hr />
-						<div class="row" id="tech">
-							<div id="techTemplate" class="d-none col">
+						<div id="tech" class="row border border-dark rounded bg-light mb-2">
+							<div id="techTemplate" class="d-none col-3">
 								<i class="fas fa-code"></i>&nbsp;&nbsp;<span id="name"></span>&nbsp;(<small id="level"></small>)
 							</div>
 						</div>
-						<hr />
-						<div class="row" id="education">
-							<div id="educationTemplate" class="d-none col-md-6">
-								<p id="institution"></p>
-								<p id="career"></p>
-								<p id="logo"></p>
-								<p id="website"></p>
-								<p id="endDate"></p>
+						<div class="row border border-dark rounded bg-light mb-2 p-1" id="education">
+							<div id="educationTemplate" class="card border border-secondary d-none col-md-3 pt-2">
+								<img class="card-img-top" id="picture" src=".../100px180/" alt="Card image cap">
+								<div class="card-body">
+									<h6 class="card-title text-center" id="institution">Title</h6>
+									<p class="card-text text-center" id="career"></p>
+									<p class="card-text text-center">
+										<a href="#" alt="" id="website"></a>
+									</p>
+								</div>
+								<p class="card-text text-right" id="endDate"></p>
 							</div>
 						</div>
-						<hr />
-						<div class="row" id="work">
-							<div id="workTemplate" class="d-none col-md-6">
-								<p id="company"></p>
-								<p id="position"></p>
-								<p id="logo"></p>
-								<p id="website"></p>
-								<p>
+						<div class="row border border-dark rounded bg-light mb-2 p-1" id="work">
+							<div id="workTemplate" class="d-none col-md-3">
+							<div class="card border border-secondary ">
+								<div class="card-title h-50">
+									<img class="card-img-top middle" id="picture" src=".../100px180/" alt="Card image cap">
+								</div>
+								<div class="card-body">
+									<h6 class="card-title text-center" id="company">Title</h6>
+									<p class="card-text text-center" id="position"></p>
+									<p class="card-text text-center">
+										<a href="#" alt="" id="website"></a>
+									</p>
+								</div>
+								<p class="card-text text-right">
 									<span id="startDate"></span>&nbsp;-&nbsp;<span id="endDate"></span>
 								</p>
+							</div>
 							</div>
 						</div>
 					</div>
@@ -188,12 +196,13 @@
 							.toggleClass("d-none").find("#institution").text(
 									json.education[i].institution).end().find(
 									"#career").text(json.education[i].career)
-							.end().find("#logo").text(json.education[i].logo)
-							.end().find("#endDate").text(
+							.end().find("#picture").prop("src",
+									json.education[i].logo).end().find(
+									"#endDate").text(
 									new Date(json.education[i].endDate)
 											.getFullYear()).end().find(
 									"#website").text(json.education[i].website)
-							.end());
+							.prop("href", json.education[i].website).end());
 		for (i = 0; i < json.work.length; i++)
 			$("#work").append(
 					$("#work #workTemplate").clone().prop("id", "")
@@ -205,9 +214,10 @@
 											.getFullYear()).end().find(
 									"#company").text(json.work[i].company)
 							.end().find("#position")
-							.text(json.work[i].position).end().find("#logo")
-							.text(json.work[i].logo).end().find("#website")
-							.text(json.work[i].website).end());
+							.text(json.work[i].position).end().find("#picture")
+							.prop("src", json.work[i].logo).end().find(
+									"#website").text(json.work[i].website)
+							.end());
 		//	alert();
 
 	});
