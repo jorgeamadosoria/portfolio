@@ -13,16 +13,20 @@ ul {
 }
 
 img.middle {
-	position: absolute;
+	position: flex;
 	top: 0;
 	bottom: 0;
 	margin: auto;
 }
 
+.card-half {
+	min-height:10em;	
+}
+
 div.image-container {
-    position:relative;
-    width:200px;
-    height:200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 body {
