@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-    <changeSet author="jasr (generated)" id="1539395869168-1">
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet author="jasr (generated)" id="1539738929256-1">
         <createSequence sequenceName="hibernate_sequence"/>
     </changeSet>
-    <changeSet author="jasr (generated)" id="1539395869168-2">
+    <changeSet author="jasr (generated)" id="1539738929256-2">
         <createTable tableName="link">
             <column name="id" type="BIGINT">
                 <constraints nullable="false"/>
@@ -13,7 +16,7 @@
             <column name="project_id" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="jasr (generated)" id="1539395869168-3">
+    <changeSet author="jasr (generated)" id="1539738929256-3">
         <createTable tableName="project">
             <column name="id" type="BIGINT">
                 <constraints nullable="false"/>
@@ -30,7 +33,7 @@
             <column name="type_id" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="jasr (generated)" id="1539395869168-4">
+    <changeSet author="jasr (generated)" id="1539738929256-4">
         <createTable tableName="project_tech">
             <column name="project_id" type="BIGINT">
                 <constraints nullable="false"/>
@@ -40,7 +43,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="jasr (generated)" id="1539395869168-5">
+    <changeSet author="jasr (generated)" id="1539738929256-5">
         <createTable tableName="tech">
             <column name="id" type="BIGINT">
                 <constraints nullable="false"/>
@@ -49,7 +52,7 @@
             <column name="name" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="jasr (generated)" id="1539395869168-6">
+    <changeSet author="jasr (generated)" id="1539738929256-6">
         <createTable tableName="type">
             <column name="id" type="BIGINT">
                 <constraints nullable="false"/>
@@ -58,7 +61,7 @@
             <column name="name" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="jasr (generated)" id="1539395869168-7">
+    <changeSet author="jasr (generated)" id="1539738929256-7">
         <createTable tableName="type_projects">
             <column name="type_id" type="BIGINT">
                 <constraints nullable="false"/>
@@ -68,43 +71,43 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="jasr (generated)" id="1539395869168-8">
+    <changeSet author="jasr (generated)" id="1539738929256-8">
         <addPrimaryKey columnNames="id" constraintName="link_pkey" tableName="link"/>
     </changeSet>
-    <changeSet author="jasr (generated)" id="1539395869168-9">
+    <changeSet author="jasr (generated)" id="1539738929256-9">
         <addPrimaryKey columnNames="id" constraintName="project_pkey" tableName="project"/>
     </changeSet>
-    <changeSet author="jasr (generated)" id="1539395869168-10">
+    <changeSet author="jasr (generated)" id="1539738929256-10">
         <addPrimaryKey columnNames="project_id, tech_id" constraintName="project_tech_pkey" tableName="project_tech"/>
     </changeSet>
-    <changeSet author="jasr (generated)" id="1539395869168-11">
+    <changeSet author="jasr (generated)" id="1539738929256-11">
         <addPrimaryKey columnNames="id" constraintName="tech_pkey" tableName="tech"/>
     </changeSet>
-    <changeSet author="jasr (generated)" id="1539395869168-12">
+    <changeSet author="jasr (generated)" id="1539738929256-12">
         <addPrimaryKey columnNames="id" constraintName="type_pkey" tableName="type"/>
     </changeSet>
-    <changeSet author="jasr (generated)" id="1539395869168-13">
+    <changeSet author="jasr (generated)" id="1539738929256-13">
         <addPrimaryKey columnNames="type_id, projects_id" constraintName="type_projects_pkey" tableName="type_projects"/>
     </changeSet>
-    <changeSet author="jasr (generated)" id="1539395869168-14">
+    <changeSet author="jasr (generated)" id="1539738929256-14">
         <addUniqueConstraint columnNames="projects_id" constraintName="uk_emwscpovy12p0ef0odp0tewng" tableName="type_projects"/>
     </changeSet>
-    <changeSet author="jasr (generated)" id="1539395869168-15">
+    <changeSet author="jasr (generated)" id="1539738929256-15">
         <addForeignKeyConstraint baseColumnNames="type_id" baseTableName="type_projects" constraintName="fk6pss5obh0owrhf192cwp8leuc" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="type"/>
     </changeSet>
-    <changeSet author="jasr (generated)" id="1539395869168-16">
+    <changeSet author="jasr (generated)" id="1539738929256-16">
         <addForeignKeyConstraint baseColumnNames="type_id" baseTableName="project" constraintName="fkep5xph311g03oeuyfa9w7nevl" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="type"/>
     </changeSet>
-    <changeSet author="jasr (generated)" id="1539395869168-17">
+    <changeSet author="jasr (generated)" id="1539738929256-17">
         <addForeignKeyConstraint baseColumnNames="project_id" baseTableName="project_tech" constraintName="fkg1e83277kl2y382o3olm6yxnw" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="project"/>
     </changeSet>
-    <changeSet author="jasr (generated)" id="1539395869168-18">
+    <changeSet author="jasr (generated)" id="1539738929256-18">
         <addForeignKeyConstraint baseColumnNames="tech_id" baseTableName="project_tech" constraintName="fknhaktqbxa3w9ywkbh2323vcbx" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="tech"/>
     </changeSet>
-    <changeSet author="jasr (generated)" id="1539395869168-19">
+    <changeSet author="jasr (generated)" id="1539738929256-19">
         <addForeignKeyConstraint baseColumnNames="project_id" baseTableName="link" constraintName="fkns4w5peakgt35y9cg16fi2n6t" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="project"/>
     </changeSet>
-    <changeSet author="jasr (generated)" id="1539395869168-20">
+    <changeSet author="jasr (generated)" id="1539738929256-20">
         <addForeignKeyConstraint baseColumnNames="projects_id" baseTableName="type_projects" constraintName="fkshg5cl1ekxgvhwwu9v9s4xegs" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="project"/>
     </changeSet>
 </databaseChangeLog>
