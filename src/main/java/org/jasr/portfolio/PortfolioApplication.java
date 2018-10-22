@@ -31,7 +31,8 @@ public class PortfolioApplication implements WebMvcConfigurer {
 			@Override
 			protected void configure(AuthenticationManagerBuilder builder) throws Exception {
 				BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-				builder.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder);//.withUser("admin").password("admin").roles("USER");
+				System.out.println("------------------------------------------- " + passwordEncoder.encode("admin"));
+				builder.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder);
 			}
 		};
 	}
