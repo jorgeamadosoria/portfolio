@@ -1,6 +1,11 @@
 package org.jasr.portfolio.controllers;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Optional;
+
+import javax.annotation.PostConstruct;
+import javax.sql.DataSource;
 
 import org.jasr.portfolio.entities.Project;
 import org.jasr.portfolio.entities.Status;
@@ -13,6 +18,10 @@ import org.jasr.portfolio.repositories.TypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,8 +44,17 @@ public class AdminController {
 	private TechRepository techRepository;
 	@Autowired
 	private ProjectRepository projectRepository;
+
 	@Autowired
-	private UserDetailsManager userService;
+	private UserDetailsManager usersService;
+
+	@PostConstruct
+	public void init() {
+		Collection<GrantedAuthority> authorities = new ArrayList<>();
+		authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+		UserDetails user = new User("admin", "admin", authorities);
+		usersService.createUser(user);
+	}
 
 	@GetMapping("/index")
 	public String index(Model model) {
@@ -61,7 +79,7 @@ public class AdminController {
 		// StringUtils.equals(usersService.loadUserByUsername("admin").getPassword(),cpassword)
 		)
 			// usersService.
-			userService.changePassword(cpassword, npassword);
+			usersService.changePassword(cpassword, npassword);
 		return "redirect:/admin/index";
 	}
 
