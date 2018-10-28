@@ -166,7 +166,7 @@
 </body>
 <script>
 	/*<![CDATA[*/
-	var url = /*[[${jsonUrl}]]*/"https://blooming-chamber-41361.herokuapp.com/api/export/5a8cc9b506805e1a4c65c102";
+	var url = '[[${jsonUrl}]]';//"https://blooming-chamber-41361.herokuapp.com/api/export/5a8cc9b506805e1a4c65c102";
 	$.get(url, function(jsonString) {
 		var json = JSON.parse(jsonString);
 		$("#personal #summary").text(json.personal.summary);
