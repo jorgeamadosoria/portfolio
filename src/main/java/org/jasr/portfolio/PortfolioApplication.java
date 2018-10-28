@@ -18,4 +18,6 @@ public class PortfolioApplication implements WebMvcConfigurer {
 	public static void main(String[] args) {
 		SpringApplication.run(PortfolioApplication.class, args);
 	}
+	
+	
 }

@@ -1,28 +1,18 @@
 package org.jasr.portfolio.controllers;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Optional;
-
-import javax.annotation.PostConstruct;
-import javax.sql.DataSource;
 
 import org.jasr.portfolio.entities.Project;
 import org.jasr.portfolio.entities.Status;
 import org.jasr.portfolio.entities.Tech;
 import org.jasr.portfolio.entities.Type;
-import org.jasr.portfolio.repositories.LinkRepository;
 import org.jasr.portfolio.repositories.ProjectRepository;
 import org.jasr.portfolio.repositories.TechRepository;
 import org.jasr.portfolio.repositories.TypeRepository;
+import org.jasr.portfolio.services.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -39,23 +29,14 @@ public class AdminController {
 	@Autowired
 	private TypeRepository typeRepository;
 	@Autowired
-	private LinkRepository linkRepository;
-	@Autowired
 	private TechRepository techRepository;
 	@Autowired
 	private ProjectRepository projectRepository;
 
 	@Autowired
-	private UserDetailsManager usersService;
+	private UserService usersService;
 
-	@PostConstruct
-	public void init() {
-		Collection<GrantedAuthority> authorities = new ArrayList<>();
-		authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-		UserDetails user = new User("admin", "admin", authorities);
-		usersService.createUser(user);
-	}
-
+	
 	@GetMapping("/index")
 	public String index(Model model) {
 		model.addAttribute("types", typeRepository.findAll());
