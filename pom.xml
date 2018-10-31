@@ -6,8 +6,8 @@
 
 	<groupId>org.jasr</groupId>
 	<artifactId>portfolio</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<version>1.0.0</version>
+	<packaging>war</packaging>
 
 	<name>portfolio</name>
 	<description>Portfolio showcase for personal projects and POCs</description>
