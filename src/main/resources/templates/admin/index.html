@@ -29,7 +29,7 @@
 				<div class="tab-content" id="adminTabContent">
 					<div class="tab-pane fade show active" id="projects" role="tabpanel" aria-labelledby="projects-tab">
 						<br />
-						<form id="projectForm" method="post" action="#" th:action="@{admin/project}">
+						<form id="projectForm" method="post" action="#" th:action="@{/admin/project}">
 							<input type="hidden" id="id" name="id">
 							<div class="card-form card">
 								<div class="card-body">
@@ -154,7 +154,7 @@
 					</div>
 					<div class="tab-pane fade" id="techs" role="tabpanel" aria-labelledby="techs-tab">
 						<br />
-						<form id="techForm" method="post" action="#" th:action="@{admin/tech}" th:object="${tech}">
+						<form id="techForm" method="post" action="#" th:action="@{/admin/tech}" th:object="${tech}">
 							<input type="hidden" id="id" name="id" th:value="${id}">
 							<div class="form-row">
 								<div class="col">
@@ -185,7 +185,7 @@
 					</div>
 					<div class="tab-pane fade" id="types" role="tabpanel" aria-labelledby="types-tab">
 						<br />
-						<form id="typeForm" method="post" action="#" th:action="@{admin/type}" th:object="${type}">
+						<form id="typeForm" method="post" action="#" th:action="@{/admin/type}" th:object="${type}">
 							<input type="hidden" id="id" name="id">
 							<div class="form-row">
 								<div class="col">
@@ -216,7 +216,7 @@
 					</div>
 					<div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
 						<br />
-						<form id="passForm" method="post" action="#" th:action="@{admin/password}">
+						<form id="passForm" method="post" action="#" th:action="@{/admin/password}">
 							<div class="form-row">
 								<div class="col">
 									<input id="cpassword" name="cpassword" type="password" class="form-control">
@@ -256,7 +256,7 @@
 		};
 
 		$("#types a[name=edit]").click(function(e) {
-			var url = /*[[@{admin/type/}]]*/"";
+			var url = /*[[@{/admin/type/}]]*/"";
 			$.get(url + $(e.target).attr("id"), function(data) {
 				$("#typeForm input#id").val(data.id);
 				$("#typeForm input#name").val(data.name);
@@ -264,14 +264,14 @@
 			});
 		});
 		$("#types a[name=delete]").click(function(e) {
-			var url = /*[[@{admin/type/delete/}]]*/"";
+			var url = /*[[@{/admin/type/delete/}]]*/"";
 			$.get(url + $(e.target).attr("id"), function(data) {
 				$(e.target).parents("tr").remove();
 			});
 		});
 
 		$("#tech a[name=edit]").click(function(e) {
-			var url = /*[[@{admin/tech/}]]*/"";
+			var url = /*[[@{/admin/tech/}]]*/"";
 			$.get(url + $(e.target).attr("id"), function(data) {
 				$("#techForm input#id").val(data.id);
 				$("#techForm input#name").val(data.name);
@@ -279,7 +279,7 @@
 			});
 		});
 		$("#tech a[name=delete]").click(function(e) {
-			var url = /*[[@{admin/tech/delete/}]]*/"";
+			var url = /*[[@{/admin/tech/delete/}]]*/"";
 			$.get(url + $(e.target).attr("id"), function(data) {
 				$(e.target).parents("tr").remove();
 			});
@@ -324,7 +324,7 @@
 					});
 				});
 		$("#projects a[name=delete]").click(function(e) {
-			var url = /*[[@{admin/project/delete/}]]*/"";
+			var url = /*[[@{/admin/project/delete/}]]*/"";
 			$.get(url + $(e.target).attr("id"), function(data) {
 				$(e.target).parents("tr").remove();
 			});
