@@ -49,7 +49,7 @@ public class AdminController {
 	@PostMapping("/type")
 	public String upsertType(@ModelAttribute Type entity) {
 		typeRepository.saveAndFlush(entity);
-		return "redirect:admin/index";
+		return "redirect:index";
 	}
 
 	@PostMapping("/password")
@@ -61,7 +61,7 @@ public class AdminController {
 		)
 			// usersService.
 			usersService.changePassword(cpassword, npassword);
-		return "redirect:admin/index";
+		return "redirect:index";
 	}
 
 	@GetMapping("/type/delete/{id}")
@@ -78,7 +78,7 @@ public class AdminController {
 	@PostMapping("/tech")
 	public String upsertTech(@ModelAttribute Tech entity) {
 		techRepository.saveAndFlush(entity);
-		return "redirect:admin/index";
+		return "redirect:index";
 	}
 
 	@GetMapping("/tech/delete/{id}")
@@ -95,7 +95,7 @@ public class AdminController {
 	@PostMapping("/project")
 	public String upsertProject(@ModelAttribute Project entity) {
 		projectRepository.saveAndFlush(entity);
-		return "redirect:admin/index";
+		return "redirect:index";
 	}
 
 	@GetMapping("/project/delete/{id}")
