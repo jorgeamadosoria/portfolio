@@ -27,7 +27,7 @@
 					<li class="nav-item"><a class="nav-link" id="password-tab" data-toggle="tab" href="#password" role="tab" aria-controls="password" aria-selected="false">Password</a></li>
 				</ul>
 				<div class="tab-content" id="adminTabContent">
-					<div class="tab-pane fade show active" id="projects" role="tabpanel" aria-labelledby="projects-tab">
+					<div class="tab-pane fade" id="projects" role="tabpanel" aria-labelledby="projects-tab">
 						<br />
 						<form id="projectForm" method="post" action="#" th:action="@{/admin/project}">
 							<input type="hidden" id="id" name="id">
@@ -218,19 +218,18 @@
 						<br />
 						<form id="passForm" method="post" action="#" th:action="@{/admin/password}">
 							<div class="form-row">
-								<div class="col">
-									<input id="cpassword" name="cpassword" type="password" class="form-control">
+								<div class="form-group col">
+									<input id="cpassword" name="cpassword" placeholder="Current password" type="password" class="form-control">
 								</div>
-								<div class="col">
-									<input id="npassword" name="npassword" type="password" class="form-control">
+								<div class="form-group col">
+									<input id="npassword" placeholder="New password" name="npassword" type="password" class="form-control">
 								</div>
-								<div class="col">
-									<input id="rpassword" name="rpassword" type="password" class="form-control">
+								<div class="form-group col">
+									<input id="rpassword" name="rpassword" placeholder="Repeat password" type="password" class="form-control">
 								</div>
-								<div class="col">
+								<div class="form-group col">
 									<button type="submit" class="btn btn-secondary">Update</button>
 								</div>
-							</div>
 						</form>
 					</div>
 				</div>

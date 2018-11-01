@@ -2,6 +2,7 @@ package org.jasr.portfolio.controllers;
 
 import java.util.Optional;
 
+import org.apache.logging.log4j.util.Strings;
 import org.jasr.portfolio.entities.Project;
 import org.jasr.portfolio.entities.Status;
 import org.jasr.portfolio.entities.Tech;
@@ -13,6 +14,7 @@ import org.jasr.portfolio.services.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -34,9 +36,10 @@ public class AdminController {
 	private ProjectRepository projectRepository;
 
 	@Autowired
+	private PasswordEncoder passwordEncoder;
+	@Autowired
 	private UserService usersService;
 
-	
 	@GetMapping("/index")
 	public String index(Model model) {
 		model.addAttribute("types", typeRepository.findAll());
@@ -53,13 +56,9 @@ public class AdminController {
 	}
 
 	@PostMapping("/password")
-	public String changePassword(@RequestParam String cpassword, @RequestParam String npassword, @RequestParam String rpassword) {
+	public String changePassword(Model model,@RequestParam String cpassword, @RequestParam String npassword, @RequestParam String rpassword) {
 
-		if (!StringUtils.isEmpty(npassword) && npassword.equals(rpassword)
-		// &&
-		// StringUtils.equals(usersService.loadUserByUsername("admin").getPassword(),cpassword)
-		)
-			// usersService.
+		if (!StringUtils.isEmpty(cpassword) && !StringUtils.isEmpty(npassword) && npassword.equals(rpassword) && passwordEncoder.matches(cpassword, usersService.loadUserByUsername("admin").getPassword()))
 			usersService.changePassword(cpassword, npassword);
 		return "redirect:/admin/index";
 	}
@@ -76,7 +75,7 @@ public class AdminController {
 	}
 
 	@PostMapping("/tech")
-	public String upsertTech(@ModelAttribute Tech entity) {
+	public String upsertTech(Model model,@ModelAttribute Tech entity) {
 		techRepository.saveAndFlush(entity);
 		return "redirect:/admin/index";
 	}
@@ -93,7 +92,7 @@ public class AdminController {
 	}
 
 	@PostMapping("/project")
-	public String upsertProject(@ModelAttribute Project entity) {
+	public String upsertProject(Model model,@ModelAttribute Project entity) {
 		projectRepository.saveAndFlush(entity);
 		return "redirect:/admin/index";
 	}
