@@ -85,10 +85,16 @@ public class AdminController {
 		techRepository.deleteById(id);
 		return new ResponseEntity<>(null, HttpStatus.OK);
 	}
-
+	
 	@GetMapping("/tech/{id}")
 	public ResponseEntity<Optional<Tech>> tech(@PathVariable Long id) {
 		return new ResponseEntity<>(techRepository.findById(id), HttpStatus.OK);
+	}
+
+
+	@GetMapping("/project/{id}")
+	public ResponseEntity<Optional<Project>> project(@PathVariable Long id) {
+		return new ResponseEntity<>(projectRepository.findById(id), HttpStatus.OK);
 	}
 
 	@PostMapping("/project")
