@@ -49,17 +49,18 @@ public class AdminController {
 	}
 
 	@PostMapping("/type")
-	public String upsertType(@ModelAttribute Type entity) {
+	public String upsertType(Model model, @ModelAttribute Type entity, @RequestParam String tab) {
+		model.addAttribute("tab",tab);
 		typeRepository.saveAndFlush(entity);
-		return "redirect:/admin/index";
+		return index(model);
 	}
 
 	@PostMapping("/password")
-	public String changePassword(Model model,@RequestParam String cpassword, @RequestParam String npassword, @RequestParam String rpassword) {
-
+	public String changePassword(Model model, @RequestParam String tab,@RequestParam String cpassword, @RequestParam String npassword, @RequestParam String rpassword) {
+		model.addAttribute("tab",tab);
 		if (!StringUtils.isEmpty(cpassword) && !StringUtils.isEmpty(npassword) && npassword.equals(rpassword) && passwordEncoder.matches(cpassword, usersService.loadUserByUsername("admin").getPassword()))
 			usersService.changePassword(cpassword, npassword);
-		return "redirect:/admin/index";
+		return index(model);
 	}
 
 	@GetMapping("/type/delete/{id}")
@@ -74,9 +75,10 @@ public class AdminController {
 	}
 
 	@PostMapping("/tech")
-	public String upsertTech(Model model,@ModelAttribute Tech entity) {
+	public String upsertTech(Model model, @RequestParam String tab,@ModelAttribute Tech entity) {
+		model.addAttribute("tab",tab);
 		techRepository.saveAndFlush(entity);
-		return "redirect:/admin/index";
+		return index(model);
 	}
 
 	@GetMapping("/tech/delete/{id}")
@@ -97,9 +99,10 @@ public class AdminController {
 	}
 
 	@PostMapping("/project")
-	public String upsertProject(Model model,@ModelAttribute Project entity) {
+	public String upsertProject(Model model, @RequestParam String tab,@ModelAttribute Project entity) {
+		model.addAttribute("tab",tab);
 		projectRepository.saveAndFlush(entity);
-		return "redirect:/admin/index";
+		return index(model);
 	}
 
 	@GetMapping("/project/delete/{id}")

@@ -11,30 +11,25 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<ul class="nav nav-tabs" id="adminTab" role="tablist">
-					<li class="nav-item"><a class="nav-link active" id="projects-tab" data-toggle="tab" href="#projects" role="tab" aria-controls="projects" aria-selected="true">Projects</a></li>
+					<li class="nav-item"><a class="nav-link" id="projects-tab" data-toggle="tab" href="#projects" role="tab" aria-controls="projects" aria-selected="true">Projects</a></li>
 					<li class="nav-item"><a class="nav-link" id="techs-tab" data-toggle="tab" href="#techs" role="tab" aria-controls="techs" aria-selected="false">Tech</a></li>
 					<li class="nav-item"><a class="nav-link" id="types-tab" data-toggle="tab" href="#types" role="tab" aria-controls="types" aria-selected="false">Types</a></li>
 					<li class="nav-item"><a class="nav-link" id="password-tab" data-toggle="tab" href="#password" role="tab" aria-controls="password" aria-selected="false">Password</a></li>
 				</ul>
 				<div class="tab-content" id="adminTabContent">
-					<div class="tab-pane active" id="projects" role="tabpanel" aria-labelledby="projects-tab">
+					<div class="tab-pane fade" id="projects" role="tabpanel" aria-labelledby="projects-tab">
 						<br />
 						<form id="projectForm" method="post" action="#" th:action="@{/admin/project}">
+							<input type="hidden" id="tab" name="tab" value="projects">
 							<input type="hidden" id="id" name="id">
 							<div class="card-form card">
 								<div class="card-body">
 									<div class="form-row">
 										<div class="col">
-											<div class="form-check">
-												<input class="form-check-input" type="checkbox" id="available" name="available" />
-												<label class="form-check-label" for="available"> Public </label>
-											</div>
+											<input id="name" placeholder="Name" name="name" maxlength="255" class="form-control" />
 										</div>
 										<div class="col">
 											<input id="image" placeholder="Image Url" name="image" class="form-control" />
-										</div>
-										<div class="col">
-											<input id="name" placeholder="Name" name="name" maxlength="255" class="form-control" />
 										</div>
 									</div>
 									<div class="form-row">
@@ -50,6 +45,12 @@
 										</div>
 										<div class="col">
 											<input id="year" name="year" placeholder="Year" type="number" class="form-control" />
+										</div>
+										<div class="col">
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="available" name="available" />
+												<label class="form-check-label" for="available"> Public </label>
+											</div>
 										</div>
 									</div>
 									<div class="form-row">
@@ -145,6 +146,7 @@
 					<div class="tab-pane fade" id="techs" role="tabpanel" aria-labelledby="techs-tab">
 						<br />
 						<form id="techForm" method="post" action="#" th:action="@{/admin/tech}" th:object="${tech}">
+							<input type="hidden" id="tab" name="tab" value="techs">
 							<input type="hidden" id="id" name="id" th:value="${id}">
 							<div class="form-row">
 								<div class="col">
@@ -176,6 +178,7 @@
 					<div class="tab-pane fade" id="types" role="tabpanel" aria-labelledby="types-tab">
 						<br />
 						<form id="typeForm" method="post" action="#" th:action="@{/admin/type}" th:object="${type}">
+							<input type="hidden" id="tab" name="tab" value="types">
 							<input type="hidden" id="id" name="id">
 							<div class="form-row">
 								<div class="col">
@@ -207,6 +210,7 @@
 					<div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
 						<br />
 						<form id="passForm" method="post" action="#" th:action="@{/admin/password}">
+							<input type="hidden" id="tab" name="tab" value="password">
 							<div class="form-row">
 								<div class="form-group col">
 									<input id="cpassword" name="cpassword" placeholder="Current password" type="password" class="form-control">
@@ -229,6 +233,11 @@
 	<!-- #main -->
 	<script th:inline="javascript">
 		/*<![CDATA[*/
+			
+			var tab = [[${tab}]];// 'projects';
+			if (tab === null) tab = 'projects';
+			$("#" + tab).toggleClass("fade active");
+			$("#" + tab + "-tab").toggleClass("active");
 		$("div#links").on("click", "button#remove", function(e) {
 			$(e.target).parents("div.link").remove();
 		})
