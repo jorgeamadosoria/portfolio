@@ -95,7 +95,7 @@
 						</div>
 						<h3 class="my-4">Tags</h3>
 						<div class="row" id="tags">
-							<span class="tag_item col-md-1 col-sm-1 mb-1 d-none badge badge-pill badge-dark"></span>
+							<span class="tag_item d-none badge badge-pill badge-dark"></span>
 						</div>
 					</div>
 				</div>
@@ -144,7 +144,7 @@
 							var tags = data.tags.split(",");
 							for (var i = 0; i < tags.length; i++) {
 								$("#projectModal #tags").append(
-										$(".tag_item.d-none.badge").clone()
+										$(".tag_item.d-none").clone()
 												.toggleClass("d-none").text(
 														tags[i]));
 							}
