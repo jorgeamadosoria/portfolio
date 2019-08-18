@@ -72,13 +72,19 @@ footer {
 }
 
 .tech {
-	width: 50px;
-	height: 50px;
+	width: 30px;
+	height: 30px;
 }
 
 .logo {
 	width: 100px;
 	height: 100px;
+}
+
+.app-logo {
+	width: 30px;
+	height: 30px;
+	filter : invert(100%)
 }
 
 .modal-project-image {
@@ -93,8 +99,12 @@ footer {
 	margin: 2px;
 }
 
+.card-img-container {
+	padding:2px;
+}
+
 .card-project-image {
-	max-width: 700px;
+	max-width: 300px;
 	max-height: 300px;
 	display: block;
 	margin-left: auto;
