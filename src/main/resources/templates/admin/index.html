@@ -68,7 +68,7 @@
 							<div class="card-form  card">
 								<div class="card-body">
 									<div class="form-row">
-										<div class="col" th:each="t : ${tech}">
+										<div class="col-3" th:each="t : ${tech}">
 											<input id="tech" name="tech" type="checkbox" th:value="${t.id}">
 											<label class="form-check-label" th:text="${t.name}"> Tech1 </label>
 										</div>

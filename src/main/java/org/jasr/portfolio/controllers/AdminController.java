@@ -11,6 +11,7 @@ import org.jasr.portfolio.repositories.TechRepository;
 import org.jasr.portfolio.repositories.TypeRepository;
 import org.jasr.portfolio.services.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -42,7 +43,7 @@ public class AdminController {
 	@GetMapping("/index")
 	public String index(Model model) {
 		model.addAttribute("types", typeRepository.findAll());
-		model.addAttribute("tech", techRepository.findAll());
+		model.addAttribute("tech", techRepository.findAll(Sort.by("name")));
 		model.addAttribute("statuses", Status.values());
 		model.addAttribute("projects", projectRepository.findAll());
 		return "admin/index";
