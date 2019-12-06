@@ -1,5 +1,5 @@
 package org.jasr.portfolio.entities;
 
 public enum Status {
-    PROSPECTIVE, ACTIVE, FINISHED, DORMANT
+    PROSPECTIVE, ACTIVE, ARCHIVED, DORMANT, PRODUCTION
 }
