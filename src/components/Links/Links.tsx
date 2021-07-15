@@ -35,7 +35,11 @@ const Links = (props: Props) => {
     <div className="text-middle pt-2">
       {links.map((link: any, index: number) => (
         <div key={index} className="d-inline pe-2 ps-2">
-          <a href={link.url} className="text-decoration-none text-dark">
+          <a
+            href={link.url}
+            target="_blank"
+            className="text-decoration-none text-dark"
+          >
             {getIcon(link.type)}&nbsp;{link.name}
           </a>
         </div>
