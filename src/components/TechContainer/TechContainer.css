@@ -1,0 +1,10 @@
+.TechContainer {}
+
+.tech-icon {
+    margin-right: 0.2em;
+    margin-left: 0.2em;
+}
+
+.card-footer {
+    padding: 0.1em !important;
+}

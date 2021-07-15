@@ -1,0 +1,27 @@
+.project-logo {
+    max-height: 100px;
+}
+
+.card-header {
+    background-color: #fff !important;
+}
+
+
+.card-text {
+    word-break: break-word;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   line-height: 16px; /* fallback */
+   min-height: 82px; /* fallback */
+   max-height: 82px; /* fallback */
+   -webkit-line-clamp: 5; /* number of lines to show */
+   -webkit-box-orient: vertical;
+}
+
+.header-text {
+    float: right;
+    clear:both;
+    font-size: 0.8rem;
+    width:50px;
+}
