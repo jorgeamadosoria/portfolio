@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Header from "./components/Header/Header";
 import Projects from "./components/Projects/Projects";
-import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import ProjectsData from "./data/ProjectsData";
-
+import "bootstrap/dist/css/bootstrap.min.css";
+import "jquery/dist/jquery.min.js";
+import "bootstrap/dist/js/bootstrap.min.js";
 function App() {
   const [projectsState, setProjectsState] = useState({
     projects: new ProjectsData(),
