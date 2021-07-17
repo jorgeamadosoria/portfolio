@@ -6,7 +6,7 @@ import "./Header.css";
 
 const Header = () => (
   <nav className="navbar navbar-expand-sm navbar-light bg-light">
-    <a className="ms-4 navbar-brand" href="#">
+    <a className="ms-4 navbar-brand" href="/">
       My Portfolio
     </a>
     <button

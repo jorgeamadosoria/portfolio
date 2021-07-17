@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
 import Projects from "./components/Projects/Projects";
 import "./App.css";
 import ProjectsData from "./data/ProjectsData";
@@ -33,6 +34,7 @@ function App() {
     <div className="App">
       <Header></Header>
       <Projects projects={projectsState.projects} />
+      <Footer></Footer>
     </div>
   );
 }
