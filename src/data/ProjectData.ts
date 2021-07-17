@@ -21,7 +21,6 @@ export class ProjectData {
     this.links = [];
     
     if (json) {
-      console.log(json);
       this.title = json.title;
       this.logo = json.logo;
       this.type = json.type;
